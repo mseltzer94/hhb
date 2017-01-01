@@ -1,7 +1,5 @@
 "use strict";
 var SerialPort = require('serialport');
-var stateTable = require('./devices/stateTable').params;
-var hhbDevice = require('./devices/hhbDevice').default;
 var deviceManager = require('./devices/deviceManager');
 
 const DELAY = 1000; //msec
