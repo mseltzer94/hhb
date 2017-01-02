@@ -1,9 +1,10 @@
 "use strict";
 var stateTable = require('./stateTable').params;
 var deviceAlertMap = {
+	'00': 'None',
   '01': 'Alarm Triggered',
   '02': 'Device Offline',
-  '04': 'Low Battery'
+  '04': 'Low Battery',
   '08': 'Battery Charging',
   '20': 'Running On Backup Battery (Base Station Only)',
 	'FF': 'Unknown'
@@ -17,9 +18,10 @@ class hhbDevice {
     for (var i=0; i < stateTable.length; i++){
       this[stateTable[i]] = device[i];
     }
+		this.masterUpdate();
   }
-  update(){
-    this.deviceAlerts = deviceStateMap[this.deviceAlerts];
+  masterUpdate(){
+    this.deviceAlerts = deviceAlertMap[this.deviceAlerts];
   }
 }
 
