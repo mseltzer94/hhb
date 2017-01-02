@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "lodash": "^4.17.4",
     "nodemailer": "^2.7.0",
     "serialport": "^4.0.7"
   },

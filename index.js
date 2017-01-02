@@ -1,4 +1,5 @@
 "use strict";
+var _ = require('lodash');
 var SerialPort = require('serialport');
 var deviceManager = require('./devices/deviceManager');
 var alerts = require('alerts/alert.json');

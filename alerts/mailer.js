@@ -31,13 +31,13 @@ transporter.verify(function(error, success) {
 
 var transporterContact = mailer.createTransport(mailOpts);
 
-exports.sendAlertEmail = function(email, alert, cb) {
+exports.sendAlertEmail = function(email, body, alert, cb) {
   // setup e-mail data with unicode symbols
   var mailOptions = {
       from: `"HomeHeartbeat" <${mailOpts.auth.user}>`, // sender address
       to: email, // list of receivers
       subject: alert, // Subject line
-      text: alert // plaintext body
+      text: body // plaintext body
   };
   // send mail with defined transport object
   transporter.sendMail(mailOptions, function(error, info){
