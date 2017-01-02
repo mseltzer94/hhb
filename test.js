@@ -13,12 +13,9 @@ var devices = [];
 var testDevLine = 'STATE="02,00,0040,0005,01,12,00,00,0301,12,0000,00,FF,00000000,00,000D6F0000011367,Water Sensor"';
 var testDev = deviceManager.createDevice(testDevLine);
 devices[testDev.macAddress] = testDev;
-console.log(testDev);
 alerting.alerts.forEach(function(alert){
   if (devices[alert.macAddress].deviceState.toUpperCase() == alert.deviceState.toUpperCase()){
-    console.log(alert.message);
     alertManager.sendAlert(alert.message);
   }
 
 });
-console.log(devices);
