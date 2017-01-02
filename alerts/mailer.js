@@ -1,8 +1,7 @@
 "use strict";
 var mailer = require('nodemailer');
 var mailOpts = {
-    host: 'smtp.zoho.com',
-    port: 465,
+    service: 'Gmail',
     secure: true,
     auth: {
         user: process.env.MAILEREMAILADDRESS,
