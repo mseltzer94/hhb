@@ -8,6 +8,7 @@ class tiltDevice extends hhbDevice {
   constructor(deviceLine){
     super(deviceLine);
     this.update(deviceLine);
+		return this;
   }
   update(deviceLine){
     this.deviceState = deviceStateMap[parseInt(this.deviceState)];

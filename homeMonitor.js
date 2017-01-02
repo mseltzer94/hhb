@@ -30,12 +30,13 @@ function connectToHhb(){
       console.log("Connected to HHB");
       hhbStatus = "Ready. Connected to HHB";
       port.on('data', function (data) {
-          console.log(data);
-          if (data != "STATE=NEW"){
+          if (data != "STATE=NEW" && data != "STATE=DONE" && data.split(',').length == 17){
             var dev = deviceManager.createDevice(data);
-            devices[dev.macAddress] = dev;
-            manageAlerts();
-            devicesLastRead[dev.macAddress] = dev;
+						if (dev && dev.macAddress){
+							devices[dev.macAddress] = dev;
+            	manageAlerts();
+            	devicesLastRead[dev.macAddress] = dev;
+						}
           }
       });
 
@@ -59,7 +60,7 @@ function manageAlerts() {
 }
 
 exports.getDevices = function(){
-  return devices;
+  return _.values(devices);
 }
 exports.getStatus = function(){
   return hhbStatus;
