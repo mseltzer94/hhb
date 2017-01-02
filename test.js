@@ -15,6 +15,7 @@ var testDev = deviceManager.createDevice(testDevLine);
 devices[testDev.macAddress] = testDev;
 alerting.alerts.forEach(function(alert){
   if (devices[alert.macAddress].deviceState.toUpperCase() == alert.deviceState.toUpperCase()){
+    console.log(alert.message);
     alertManager.sendAlert(alert.message);
   }
 
