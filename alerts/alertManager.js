@@ -5,7 +5,7 @@ const MESSAGEFAILUREWAITTIME = 5000; //5 sec wait time
 
 function sendAlertHelper(alert, body, email, attempts){
   mailer.sendAlertEmail(email, body, alert, function(error){
-    if (error && attempts < 5){
+    if (error){
       attempts++;
       setTimeout(function(){
         console.log(`Alert: ${alert} send failure to ${email}. Attempt ${attempts}`);

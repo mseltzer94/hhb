@@ -2,7 +2,6 @@
   "emails": ["michael.m.seltzer@gmail.com"],
   "alerts":[
     {
-      "deviceName": "Water Sensor",
       "alertField": "deviceState",
       "deviceState": "wet",
       "macAddress": "000D6F0000011367",
