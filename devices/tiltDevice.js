@@ -8,6 +8,7 @@ class tiltDevice extends hhbDevice {
   constructor(deviceLine){
     super(deviceLine);
     this.update(deviceLine);
+		console.log(`Tilt device: ${this}`);
 		return this;
   }
   update(deviceLine){
