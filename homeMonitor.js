@@ -57,10 +57,24 @@ function manageAlerts() {
       alertManager.sendAlert(`${(isAlarmMatch ? "New Alert": "Resolved")}: ${alert.message}`, `${new Date()}: ${alert.message} \n Details: ${JSON.stringify(devices[alert.macAddress])}`);
     }
   });
+  //generic monitoring (across all devices)
+  var alarmFields = ['deviceAlerts'];
+  var deviceAddrs = _.key(devices);
+  alarmFields.forEach(function(field){
+    deviceAddrs.forEach(function(macAddress){
+      var oldState = _.get(devicesLastRead, `${macAddress}.${field}`);
+      var newState = _.get(devices, `${macAddress}.${field}`);
+      var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase()
+      var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert[alert.alertField].toUpperCase();
+      var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
+      if (isChangeDetected && (isAlarmMatch || shouldSendOnResolve)){
+        alertManager.sendAlert(`${(isAlarmMatch ? "New Alert": "Resolved")}: ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
+      }
+    });
+  });
 }
 
 exports.getDevices = function(){
-	console.log(devices['000D6F000000ABD4']);
   return _.values(devices);
 }
 exports.getStatus = function(){
