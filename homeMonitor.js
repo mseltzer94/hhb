@@ -30,6 +30,7 @@ function connectToHhb(){
       console.log("Connected to HHB");
       hhbStatus = "Ready. Connected to HHB";
       port.on('data', function (data) {
+          console.log(data);
           if (data != "STATE=NEW"){
             var dev = deviceManager.createDevice(data);
             devices[dev.macAddress] = dev;
