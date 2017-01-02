@@ -27,6 +27,8 @@ function connectToHhb(){
       //retry every second
       setInterval(function(){ connectToHhb()}, RETRYDELAY);
     } else {
+      console.log("Connected to HHB");
+      hhbStatus = "Ready. Connected to HHB";
       port.on('data', function (data) {
           if (data != "STATE=NEW"){
             var dev = deviceManager.createDevice(data);
