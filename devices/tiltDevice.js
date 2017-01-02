@@ -8,10 +8,9 @@ var deviceStateMap = {
 class tiltDevice extends hhbDevice {
   constructor(deviceLine){
     super(deviceLine);
-    this.update(deviceLine);
-		return this;
+    this.update();
   }
-  update(deviceLine){
+  update(){
     this.deviceState = deviceStateMap[this.deviceState];
   }
 }
