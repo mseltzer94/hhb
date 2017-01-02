@@ -1,8 +1,9 @@
 "use strict";
 var hhbDevice = require('./hhbDevice').default;
 var deviceStateMap = {
-  1: 'Wet',
-  2: 'Dry'
+  '01': 'Wet',
+  '02': 'Dry',
+	'FF': 'Unknown'
 }
 class waterDevice extends hhbDevice {
   constructor(deviceLine){
@@ -11,7 +12,7 @@ class waterDevice extends hhbDevice {
 		return this;
   }
   update(deviceLine){
-    this.deviceState = deviceStateMap[parseInt(this.deviceState)];
+    this.deviceState = deviceStateMap[this.deviceState];
   }
 }
 

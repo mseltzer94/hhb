@@ -60,6 +60,7 @@ function manageAlerts() {
 }
 
 exports.getDevices = function(){
+	console.log(devices['000D6F000000ABD4']);
   return _.values(devices);
 }
 exports.getStatus = function(){

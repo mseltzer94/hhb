@@ -1,18 +1,18 @@
 "use strict";
 var hhbDevice = require('./hhbDevice').default;
 var deviceStateMap = {
-  0: 'Closed',
-  1: 'Open'
+  '02': 'Closed',
+  '01': 'Open',
+	'FF': 'Unknown'
 }
 class tiltDevice extends hhbDevice {
   constructor(deviceLine){
     super(deviceLine);
     this.update(deviceLine);
-		console.log(`Tilt device: ${this}`);
 		return this;
   }
   update(deviceLine){
-    this.deviceState = deviceStateMap[parseInt(this.deviceState)];
+    this.deviceState = deviceStateMap[this.deviceState];
   }
 }
 
