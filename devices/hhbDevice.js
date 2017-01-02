@@ -5,7 +5,7 @@ var deviceAlertMap = {
   '02': 'Device Offline',
   '04': 'Low Battery'
   '08': 'Battery Charging',
-  '20': 'Running On Backup Battery (Base Station Only)'
+  '20': 'Running On Backup Battery (Base Station Only)',
 	'FF': 'Unknown'
 }
 
