@@ -4,7 +4,8 @@ var transporter = mailer.createTransport(mailOpts);
 
 if (!process.env.MAILEREMAILADDRESS || !process.env.MAILEREMAILPASSWORD){
   console.log("ERROR: No alert email set!!!!");
-  console.log(">>>>> If email alerting is desired please export MAILEREMAILADDRESS and MAILEREMAILPASSWORD and restart.")
+  console.log(">>>>> Please export MAILEREMAILADDRESS and MAILEREMAILPASSWORD and restart.");
+  process.exit(0);
 }
 
 var mailOpts = {
