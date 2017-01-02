@@ -3,9 +3,9 @@
   "alerts":[
     {
       "alertField": "deviceState",
-      "deviceState": "wet",
-      "macAddress": "000D6F0000011367",
-      "message": "Floor is wet",
+      "deviceState": "Open",
+      "macAddress": "000D6F000000F7EB",
+      "message": "Door has been opened",
       "sendOnResolve": true
     }
   ]

@@ -1,8 +1,7 @@
 "use strict";
 var mailer = require('nodemailer');
 var mailOpts = {
-    service: 'Gmail',
-    secure: true,
+    service: 'gmail',
     auth: {
         user: process.env.MAILEREMAILADDRESS,
         pass: process.env.MAILEREMAILPASSWORD
@@ -27,13 +26,10 @@ transporter.verify(function(error, success) {
 });
 
 
-
-var transporterContact = mailer.createTransport(mailOpts);
-
 exports.sendAlertEmail = function(email, body, alert, cb) {
   // setup e-mail data with unicode symbols
   var mailOptions = {
-      from: `"HomeHeartbeat" <${mailOpts.auth.user}>`, // sender address
+      from: `${mailOpts.auth.user}`, // sender address
       to: email, // list of receivers
       subject: alert, // Subject line
       text: body // plaintext body

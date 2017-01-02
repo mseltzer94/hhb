@@ -8,7 +8,7 @@ function sendAlertHelper(alert, body, email, attempts){
     if (error){
       attempts++;
       setTimeout(function(){
-        console.log(`Alert: ${alert} send failure to ${email}. Attempt ${attempts}`);
+        console.log(`Alert: ${alert} send failure to ${email}. Error: ${error}. Attempt ${attempts}`);
         sendAlertHelper(alert, body, email, attempts);
       }, MESSAGEFAILUREWAITTIME);
     }

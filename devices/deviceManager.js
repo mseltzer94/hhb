@@ -16,7 +16,6 @@ var waterDevice = require('./waterDevice').default;
 
 function createDevice(deviceLine){
   var generic = new hhbDevice(deviceLine);
-	console.log(generic.deviceType);
   if (generic.deviceType == TILT_DEVICE_TYPE) {
     return new tiltDevice(deviceLine);
   } if (generic.deviceType == WATER_DEVICE_TYPE){
