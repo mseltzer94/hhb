@@ -1,6 +1,7 @@
 "use strict";
 var SerialPort = require('serialport');
 var deviceManager = require('./devices/deviceManager');
+var alerts = require('alerts/alert.json');
 
 const DELAY = 1000; //msec
 const SERIAL_PORT = '/dev/ttyUSB0';
@@ -25,8 +26,9 @@ port.open(function (err) {
 });
 
 port.on('data', function (data) {
-    var dev = deviceManager.createDevice(data);
-    devices[dev.macAddress];
-    devices.push(dev);
-    console.log(devices);
+    if (data != "STATE=NEW"){
+      var dev = deviceManager.createDevice(data);
+      devices[dev.macAddress] = dev;
+      console.log(devices);
+    }
 });

@@ -12,11 +12,14 @@ const TILT_DEVICE_TYPE = 24;
 
 var hhbDevice = require('./hhbDevice').default;
 var tiltDevice = require('./tiltDevice').default;
+var waterDevice = require('./waterDevice').default;
 
 function createDevice(deviceLine){
   var generic = new hhbDevice(deviceLine);
   if (generic.deviceType == TILT_DEVICE_TYPE) {
     return new tiltDevice(deviceLine);
+  } if (generic.deviceType == WATER_DEVICE_TYPE){
+    return new waterDevice(deviceLine);
   } else {
     return generic;
   }

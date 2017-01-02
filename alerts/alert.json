@@ -1,0 +1,11 @@
+{
+  "emails": ["michael.m.seltzer@gmail.com", "michael@theseltzers.net"],
+  "alerts":[
+    {
+      "deviceName": "Water Sensor",
+      "deviceState": "wet",
+      "macAddress": "000D6F0000011367",
+      "message": "Floor is wet"
+    }
+  ]
+}
