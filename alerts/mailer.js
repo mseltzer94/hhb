@@ -23,7 +23,7 @@ transporter.verify(function(error, success) {
         console.log("Check connection and credentials for email alert sending");
         process.exit(0);
    } else {
-        console.log('Ready to send alerts.');
+        console.log('Email Service: Ready to send alerts.');
    }
 });
 
