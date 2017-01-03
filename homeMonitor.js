@@ -18,6 +18,12 @@ var hhbErrorMessage = null;
 var attempt = 0;
 var isVacationMode = process.env.ISVACATIONMODE;
 
+if (isVacationMode){
+  console.log("Vacation Mode Enabled")
+} else {
+  console.log("Vacation Mode Disabled")
+}
+
 var port = new SerialPort(SERIAL_PORT, { autoOpen: false, baudRate:38400, parser: SerialPort.parsers.readline('\n') });
 
 function connectToHhb(){
