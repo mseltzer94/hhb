@@ -13,6 +13,7 @@ const TILT_DEVICE_TYPE = '0018';
 var hhbDevice = require('./hhbDevice').default;
 var tiltDevice = require('./tiltDevice').default;
 var waterDevice = require('./waterDevice').default;
+var openClosedDevice = require('./openClosedDevice').default;
 
 function createDevice(deviceLine){
   var generic = new hhbDevice(deviceLine);
@@ -20,6 +21,8 @@ function createDevice(deviceLine){
     return new tiltDevice(deviceLine);
   } if (generic.deviceType == WATER_DEVICE_TYPE){
     return new waterDevice(deviceLine);
+  } if (generic.deviceType == OPEN_CLOSED_DEVICE_TYPE){
+    return new openClosedDevice(deviceLine);
   } else {
     return generic;
   }
