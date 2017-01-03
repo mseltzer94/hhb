@@ -30,6 +30,9 @@ fs.readFile('isVacationMode', 'utf8', function(err, contents) {
   if (!err){
     isVacationMode = (contents.trim() == 'true');
   }
+  if (err){
+    fs.setVacationModeStatus(isVacationMode);
+  }
   if (isVacationMode){
     console.log("Vacation Mode Enabled")
   } else {
