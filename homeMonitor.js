@@ -14,7 +14,7 @@ logger.setLevel('INFO');
 
 const DELAY = 1000; //msec
 const RETRYDELAY = 5000;
-const LOGDELAY = 20000;
+const LOGDELAY = 1000;
 const SERIAL_PORT = '/dev/ttyUSB0';
 
 //hash table of devices, MAC address is the key
@@ -98,7 +98,7 @@ function manageAlerts() {
       var isAlertMatch = (!newState) ? false : newState.toUpperCase() == alert.fieldContents.toUpperCase();
       var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
       var isVacationOnly = _.get(alert, 'isVacationOnly');
-      if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve) || (isStartup && isAlertMatch)){
+      if (isChangeDetected &&(isAlertMatch || shouldSendOnResolve) || (isStartup && isAlertMatch)){
         if ((isVacationOnly && isVacationMode) || !isVacationOnly){
           alertManager.sendAlert(`Device Alert (${devices[macAddress].deviceName}): ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
         }
@@ -107,16 +107,16 @@ function manageAlerts() {
   });
 }
 var lastLogged = [];
-setTimeout(function(){
+setInterval(function(){
   var deviceAddrs = _.keys(devices);
   deviceAddrs.forEach(function(macAddress){
-      var oldState = _.get(lastLogged, `${macAddress}.deviceState`);
+      var oldState = _.get(lastLogged, `${macAddress}`);
       var newState = _.get(devices, `${macAddress}.deviceState`);
-      if (!oldState || (newState && newState.toUpperCase() != newState.toUpperCase())){
+      if (!oldState || (newState && newState.toUpperCase() != oldState.toUpperCase())){
         logger.info(devices[macAddress].deviceName);
         logger.info("CHANGE: " + oldState + "->" + newState);
       }
-      lastLogged[macAddress] = devices[macAddress];
+      lastLogged[macAddress] = devices[macAddress].deviceState;
   })
 }, LOGDELAY);
 
