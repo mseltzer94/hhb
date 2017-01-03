@@ -75,7 +75,7 @@ function manageAlerts() {
   genericAlarms.forEach(function(alert){
     deviceAddrs.forEach(function(macAddress){
       var oldState = _.get(devicesLastRead, `${macAddress}.${alert.alertField}`);
-      var newState = _.get(devices, `${macAddress}.${alert.alertfield}`);
+      var newState = _.get(devices, `${macAddress}.${alert.alertField}`);
       var isStartup = !oldState && newState;
       var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase();
       var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert[alert.alertField].toUpperCase();
