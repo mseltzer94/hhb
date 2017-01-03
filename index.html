@@ -24,7 +24,10 @@
       <div class="md-toolbar-tools">
         <h2 flex="40">
           <span>Seltzer Home</span>
-          <md-button disabled="true" class="md-warn">
+          <md-button>
+            <md-tooltip md-direction="bottom">
+              Last contact: {{lastContact}}
+            </md-tooltip>
             <md-icon ng-if="isReady() == true" class="material-icons">checkmark</md-icon>
             <md-icon ng-if="isReady() == false" class="material-icons">error</md-icon>
             {{status}}

@@ -3,6 +3,9 @@ angular.module('hhb', ['ngMaterial'])
   $scope.isSettingVacationMode = false;
   $scope.failedSettingVacationMode = false;
 
+  //polling
+  setInterval(function(){$scope.getDevices()}, 5000);
+
   $scope.getDevices = function(){
     $http.get('/api').then(function(res){
       $scope.devices = res.data.devices;
