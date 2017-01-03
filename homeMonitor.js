@@ -16,7 +16,7 @@ var devicesLastRead = []; //last read device info
 var hhbStatus = "Not Ready"
 var hhbErrorMessage = null;
 var attempt = 0;
-var isVacationMode = process.env.VACATIONMODE;
+var isVacationMode = process.env.ISVACATIONMODE;
 
 var port = new SerialPort(SERIAL_PORT, { autoOpen: false, baudRate:38400, parser: SerialPort.parsers.readline('\n') });
 
