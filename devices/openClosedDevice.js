@@ -15,4 +15,4 @@ class openClosedDevice extends hhbDevice {
   }
 }
 
-exports.default = waterDevice;
+exports.default = openClosedDevice;

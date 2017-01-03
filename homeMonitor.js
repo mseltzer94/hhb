@@ -5,6 +5,12 @@ var deviceManager = require('./devices/deviceManager');
 var alerting = require('./alerts/alert.json');
 var mailer = require('./alerts/mailer');
 var alertManager = require('./alerts/alertManager');
+var log4js = require('log4js');
+
+log4js.loadAppender('file');
+log4js.addAppender(log4js.appenders.file('logs/hhb.log'), 'hhb');
+var logger = log4js.getLogger('hhb');
+logger.setLevel('INFO');
 
 const DELAY = 1000; //msec
 const RETRYDELAY = 5000;
@@ -98,6 +104,15 @@ function manageAlerts() {
       }
     });
   });
+	//logging on deviceState
+	deviceAddrs.forEach(function(macAddress){
+			var oldState = _.get(devicesLastRead, `${macAddress}.deviceState`);
+      var newState = _.get(devices, `${macAddress}.deviceState`);
+			if (!oldState || (newState && newState.toUpperCase() != newState.toUpperCase())){
+				logger.info(devices[macAddress].deviceName);
+				logger.info("CHANGE: " + oldState + "->" + newState);
+			}
+	})
 }
 
 exports.getDevices = function(){

@@ -1,5 +1,5 @@
 {
-  "emails": ["michael.m.seltzer@gmail.com"],
+  "emails": ["michael.m.seltzer@gmail.com", "7202050580@txt.att.net", "wayne@theseltzers.net"],
   "alerts":[
     {
       "field": "deviceState",
@@ -7,6 +7,21 @@
       "macAddress": "000D6F000000DA3A",
       "message": "Door has been opened",
       "vacationOnly": true,
+      "sendOnResolve": true
+    },
+		{
+      "field": "deviceState",
+      "fieldContents": "wet",
+      "macAddress": "000D6F000000ABD4",
+      "message": "Basement floor is wet",
+      "sendOnResolve": true
+    },
+    {
+      "field": "deviceState",
+      "fieldContents": "Open",
+      "macAddress": "Garage Door Sensor",
+      "message": "Garage door open",
+			"vacationOnly": true,
       "sendOnResolve": true
     }
   ]
