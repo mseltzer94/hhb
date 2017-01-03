@@ -71,10 +71,10 @@ function manageAlerts() {
     "sendOnResolve": true
   }];
   var deviceAddrs = _.keys(devices);
-  alarmFields.forEach(function(alert){
+  genericAlarms.forEach(function(alert){
     deviceAddrs.forEach(function(macAddress){
       var oldState = _.get(devicesLastRead, `${macAddress}.${alert.alertField}`);
-      var newState = _.get(devices, `${macAddress}.${field}`);
+      var newState = _.get(devices, `${macAddress}.${alert.alertfield}`);
       var isChangeDetected = (!oldState || !newState) ? true : newState.toUpperCase() != oldState.toUpperCase();
       var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert[alert.alertField].toUpperCase();
       var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
