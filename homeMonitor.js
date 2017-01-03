@@ -81,7 +81,7 @@ function manageAlerts() {
       var isAlertMatch = (!newState) ? false : newState.toUpperCase() == alert.fieldContents.toUpperCase();
       var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
       if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve) || (isStartup && isAlertMatch)){
-        alertManager.sendAlert(`Change to Device: ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
+        alertManager.sendAlert(`Device Alert (${devices[macAddress].deviceName}): ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
       }
     });
   });
