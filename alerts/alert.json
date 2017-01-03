@@ -4,8 +4,9 @@
     {
       "field": "deviceState",
       "fieldContents": "Open",
-      "macAddress": "000D6F000000F7EB",
+      "macAddress": "000D6F000000DA3A",
       "message": "Door has been opened",
+      "vacationOnly": true,
       "sendOnResolve": true
     }
   ]

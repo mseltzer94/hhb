@@ -16,6 +16,7 @@ var devicesLastRead = []; //last read device info
 var hhbStatus = "Not Ready"
 var hhbErrorMessage = null;
 var attempt = 0;
+var isVacationMode = process.env.VACATIONMODE;
 
 var port = new SerialPort(SERIAL_PORT, { autoOpen: false, baudRate:38400, parser: SerialPort.parsers.readline('\n') });
 
@@ -54,8 +55,11 @@ function manageAlerts() {
     var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase()
     var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert.fieldContents.toUpperCase();
     var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
+    var isVacationOnly = _.get(alert, 'isVacationOnly');
     if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve) || (isStartup && isAlarmMatch)){
-      alertManager.sendAlert(`${(isAlarmMatch ? "New Alert": "Resolved")}: ${alert.message}`, `${new Date()}: ${alert.message} \n Details: ${JSON.stringify(devices[alert.macAddress])}`);
+      if ((isVacationOnly && isVacationMode) || !isVacationOnly){
+        alertManager.sendAlert(`${(isAlarmMatch ? "New Alert": "Resolved")}: ${alert.message}`, `${new Date()}: ${alert.message} \n Details: ${JSON.stringify(devices[alert.macAddress])}`);
+      }
     }
   });
   //generic monitoring (across all devices)
@@ -80,8 +84,11 @@ function manageAlerts() {
       var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase();
       var isAlertMatch = (!newState) ? false : newState.toUpperCase() == alert.fieldContents.toUpperCase();
       var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
+      var isVacationOnly = _.get(alert, 'isVacationOnly');
       if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve) || (isStartup && isAlertMatch)){
-        alertManager.sendAlert(`Device Alert (${devices[macAddress].deviceName}): ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
+        if ((isVacationOnly && isVacationMode) || !isVacationOnly){
+          alertManager.sendAlert(`Device Alert (${devices[macAddress].deviceName}): ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
+        }
       }
     });
   });
