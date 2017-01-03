@@ -59,16 +59,14 @@ function manageAlerts() {
   });
   //generic monitoring (across all devices)
   var alarmFields = ['deviceAlerts'];
-  var deviceAddrs = _.key(devices);
+  var deviceAddrs = _.keys(devices);
   alarmFields.forEach(function(field){
     deviceAddrs.forEach(function(macAddress){
       var oldState = _.get(devicesLastRead, `${macAddress}.${field}`);
       var newState = _.get(devices, `${macAddress}.${field}`);
       var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase()
-      var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert[alert.alertField].toUpperCase();
-      var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
-      if (isChangeDetected && (isAlarmMatch || shouldSendOnResolve)){
-        alertManager.sendAlert(`${(isAlarmMatch ? "New Alert": "Resolved")}: ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
+      if (isChangeDetected && (isAlarmMatch)){
+        alertManager.sendAlert(`Change to Device: ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
       }
     });
   });
