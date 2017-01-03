@@ -8,30 +8,37 @@ angular.module('hhb', ['ngMaterial'])
 
   $scope.getDevices = function(){
     $http.get('/api').then(function(res){
+      $scope.updated = true;
       $scope.devices = res.data.devices;
       $scope.isVacationMode = res.data.isVacationMode;
       $scope.lastContact = res.data.lastContact;
       $scope.status = res.data.status;
     },
     function(res){
+      $scope.updated = false;
     });
   }
 
   $scope.isReady = function (){
-    console.log($scope.status == "Active");
     return $scope.status == "Active";
+  }
+
+  $scope.getLiveStatus = function(){
+    if ($scope.updated){
+      return 'Live';
+    } else {
+      return 'Failed to update'
+    }
   }
 
   $scope.setVacationMode = function(){
     $scope.isSettingVacationMode = true;
     $http.post('/api/setVacationMode', JSON.stringify({'isVacationMode':!$scope.isVacationMode})).then(function(res){
-      console.log("set!");
       $scope.getDevices();
       $scope.isSettingVacationMode = false;
       $scope.failedSettingVacationMode = false;
     },
     function(res){
-      console.log("failure!");
       $scope.failedSettingVacationMode = true;
       $scope.isSettingVacationMode = false;
     });

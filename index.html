@@ -30,7 +30,7 @@
             </md-tooltip>
             <md-icon ng-if="isReady() == true" class="material-icons">checkmark</md-icon>
             <md-icon ng-if="isReady() == false" class="material-icons">error</md-icon>
-            {{status}}
+            {{status}} - {{getLiveStatus()}}
           </md-button>
         </h2>
         <span flex>
