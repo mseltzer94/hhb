@@ -2,8 +2,8 @@
   "emails": ["michael.m.seltzer@gmail.com"],
   "alerts":[
     {
-      "alertField": "deviceState",
-      "deviceState": "Open",
+      "field": "deviceState",
+      "fieldContents": "Open",
       "macAddress": "000D6F000000F7EB",
       "message": "Door has been opened",
       "sendOnResolve": true

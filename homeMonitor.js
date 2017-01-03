@@ -48,11 +48,11 @@ function connectToHhb(){
 function manageAlerts() {
   alerting.alerts.forEach(function(alert){
     // send on alarm match or alarm match resolve
-    var oldState = _.get(devicesLastRead, `${alert.macAddress}.${alert.alertField}`);
-    var newState = _.get(devices, `${alert.macAddress}.${alert.alertField}`);
+    var oldState = _.get(devicesLastRead, `${alert.macAddress}.${alert.field}`);
+    var newState = _.get(devices, `${alert.macAddress}.${alert.field}`);
     var isStartup = !oldState && newState;
     var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase()
-    var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert[alert.alertField].toUpperCase();
+    var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert.fieldContents.toUpperCase();
     var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
     if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve) || (isStartup && isAlarmMatch)){
       alertManager.sendAlert(`${(isAlarmMatch ? "New Alert": "Resolved")}: ${alert.message}`, `${new Date()}: ${alert.message} \n Details: ${JSON.stringify(devices[alert.macAddress])}`);
@@ -60,27 +60,27 @@ function manageAlerts() {
   });
   //generic monitoring (across all devices)
   var genericAlarms = [{
-    "alertField": "deviceAlerts",
-    "deviceAlerts": "Low Battery",
+    "field": "deviceAlerts",
+    "fieldContents": "Low Battery",
     "message": "Low Battery",
     "sendOnResolve": true
   },
   {
-    "alertField": "deviceAlerts",
-    "deviceAlerts": "Device Offline",
+    "field": "deviceAlerts",
+    "fieldContents": "Device Offline",
     "message": "Device Offline",
     "sendOnResolve": true
   }];
   var deviceAddrs = _.keys(devices);
   genericAlarms.forEach(function(alert){
     deviceAddrs.forEach(function(macAddress){
-      var oldState = _.get(devicesLastRead, `${macAddress}.${alert.alertField}`);
-      var newState = _.get(devices, `${macAddress}.${alert.alertField}`);
+      var oldState = _.get(devicesLastRead, `${macAddress}.${alert.field}`);
+      var newState = _.get(devices, `${macAddress}.${alert.field}`);
       var isStartup = !oldState && newState;
       var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase();
-      var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert[alert.alertField].toUpperCase();
+      var isAlertMatch = (!newState) ? false : newState.toUpperCase() == alert.fieldContents.toUpperCase();
       var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
-      if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve) || (isStartup && isAlarmMatch)){
+      if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve) || (isStartup && isAlertMatch)){
         alertManager.sendAlert(`Change to Device: ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
       }
     });
