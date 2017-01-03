@@ -24,16 +24,16 @@ router.get('/', function(req, res) {
 });
 
 router.post('/setVacationMode', function(req, res){
-  if (req && req.body && req.body.isVacationMode){
+  if (req && req.body && req.body.hasOwnProperty('isVacationMode')){
     homeMonitor.setVacationModeStatus(req.body.isVacationMode, function(err){
       if (err){
         res.status(500).send('Failed to save vacation status');
       } else {
-        res.send(200);
+        res.status(200).send();
       }
     });
   } else {
-    res.send(400);
+    res.status(400).send();
   }
 });
 

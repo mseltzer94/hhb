@@ -11,39 +11,46 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/node_modules/angular-material/angular-material.min.css">
   <link rel="stylesheet" type="text/css" href="/view/styles/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 
 
 <html>
 <body ng-app="hhb">
-  <div ng-controller="AppCtrl" ng-cloak>
+  <div ng-controller="AppCtrl" ng-cloak ng-init="getDevices()">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>
           <span>Seltzer Home</span>
+          <md-button class="md-raised">
+            <md-icon ng-if="isReady() == true" class="material-icons">checkmark</md-icon>
+            <md-icon ng-if="isReady() == false" class="material-icons">error</md-icon>
+            {{status}}
+          </md-button>
         </h2>
         <span flex></span>
-        <md-button class="md-raised" aria-label="Learn More">
-          Home Mode
+        <md-button class="md-raised" ng-click="setVacationMode()">
+          {{isVacationMode == true ? 'Vacation Mode':'Home Mode'}}
+          <md-progress-linear ng-if="isSettingVacationMode" md-mode="indeterminate"></md-progress-linear>
         </md-button>
       </div>
     </md-toolbar>
     <div ng-repeat = 'device in devices'>
-      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+      <md-card>
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline">{{device.deviceName}}</span>
-            <span class="md-subhead">{{device.deviceState}}</span>
           </md-card-title-text>
-          <md-card-title-media>
-            <div class="md-media-sm card-media"></div>
-          </md-card-title-media>
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button>Action 1</md-button>
-          <md-button>Action 2</md-button>
+          <md-button disabled="true" class="md-primary">
+            <md-icon ng-if="device.deviceAlerts != 'None'" class="material-icons">warning</md-icon>
+            {{device.deviceAlerts}}</md-button>
+          <md-button disabled="true" class="md-raised">
+            <md-icon ng-if="device.alerts" class="material-icons">alarm</md-icon>
+            {{device.deviceState}}</md-button>
         </md-card-actions>
       </md-card>
     </div>

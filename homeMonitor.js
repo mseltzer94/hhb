@@ -22,7 +22,7 @@ var lastContact = null;
 //hash table of devices, MAC address is the key
 var devices = []; //current device info
 var devicesLastRead = []; //last read device info
-var hhbStatus = "Not Ready"
+var hhbStatus = "Inactive"
 var hhbErrorMessage = null;
 var attempt = 0;
 var isVacationMode = true; //default to noisier
@@ -51,7 +51,7 @@ function connectToHhb(){
       setInterval(function(){ connectToHhb()}, RETRYDELAY);
     } else {
       console.log("Connected to HHB");
-      hhbStatus = "Ready. Connected to HHB";
+      hhbStatus = "Active";
       port.on('data', function (data) {
         lastContact = new Date();
         if (data != "STATE=NEW" && data != "STATE=DONE" && data.split(',').length == 17){
@@ -81,6 +81,11 @@ function manageAlerts() {
     var isVacationOnly = _.get(alert, 'isVacationOnly');
     if (isChangeDetected &&(isAlertMatch || shouldSendOnResolve) || (isStartup && isAlertMatch)){
       if ((isVacationOnly && isVacationMode) || !isVacationOnly){
+        if (isAlertMatch){
+          devices[alert.macAddress].alert = true;
+        } else {
+          devices[alert.macAddress].alert = false;
+        }
         alertManager.sendAlert(`${(isAlertMatch ? "New Alert": "Resolved")}: ${alert.message}`, `${new Date()}: ${alert.message} \n Details: ${JSON.stringify(devices[alert.macAddress])}`);
       }
     }
