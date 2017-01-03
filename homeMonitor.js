@@ -50,7 +50,7 @@ function manageAlerts() {
     // send on alarm match or alarm match resolve
     var oldState = _.get(devicesLastRead, `${alert.macAddress}.${alert.alertField}`);
     var newState = _.get(devices, `${alert.macAddress}.${alert.alertField}`);
-    var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase()
+    var isChangeDetected = (!oldState || !newState) ? true : newState.toUpperCase() != oldState.toUpperCase()
     var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert[alert.alertField].toUpperCase();
     var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
     if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve)){
@@ -58,14 +58,27 @@ function manageAlerts() {
     }
   });
   //generic monitoring (across all devices)
-  var alarmFields = ['deviceAlerts'];
+  var genericAlarms = [{
+    "alertField": "deviceAlerts",
+    "deviceState": "Low Battery",
+    "message": "Low Battery",
+    "sendOnResolve": true
+  },
+  {
+    "alertField": "deviceAlerts",
+    "deviceState": "Device Offline",
+    "message": "Device Offline",
+    "sendOnResolve": true
+  }];
   var deviceAddrs = _.keys(devices);
-  alarmFields.forEach(function(field){
+  alarmFields.forEach(function(alert){
     deviceAddrs.forEach(function(macAddress){
-      var oldState = _.get(devicesLastRead, `${macAddress}.${field}`);
+      var oldState = _.get(devicesLastRead, `${macAddress}.${alert.alertField}`);
       var newState = _.get(devices, `${macAddress}.${field}`);
-      var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase()
-      if (isChangeDetected && (isAlarmMatch)){
+      var isChangeDetected = (!oldState || !newState) ? true : newState.toUpperCase() != oldState.toUpperCase();
+      var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert[alert.alertField].toUpperCase();
+      var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
+      if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve)){
         alertManager.sendAlert(`Change to Device: ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
       }
     });
