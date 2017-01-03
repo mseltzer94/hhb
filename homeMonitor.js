@@ -50,10 +50,11 @@ function manageAlerts() {
     // send on alarm match or alarm match resolve
     var oldState = _.get(devicesLastRead, `${alert.macAddress}.${alert.alertField}`);
     var newState = _.get(devices, `${alert.macAddress}.${alert.alertField}`);
-    var isChangeDetected = (!oldState || !newState) ? true : newState.toUpperCase() != oldState.toUpperCase()
+    var isStartup = !oldState && newState;
+    var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase()
     var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert[alert.alertField].toUpperCase();
     var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
-    if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve)){
+    if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve) || (isStartup && isAlarmMatch)){
       alertManager.sendAlert(`${(isAlarmMatch ? "New Alert": "Resolved")}: ${alert.message}`, `${new Date()}: ${alert.message} \n Details: ${JSON.stringify(devices[alert.macAddress])}`);
     }
   });
@@ -75,10 +76,11 @@ function manageAlerts() {
     deviceAddrs.forEach(function(macAddress){
       var oldState = _.get(devicesLastRead, `${macAddress}.${alert.alertField}`);
       var newState = _.get(devices, `${macAddress}.${alert.alertfield}`);
-      var isChangeDetected = (!oldState || !newState) ? true : newState.toUpperCase() != oldState.toUpperCase();
+      var isStartup = !oldState && newState;
+      var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase();
       var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert[alert.alertField].toUpperCase();
       var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
-      if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve)){
+      if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve) | (isStartup && isAlarmMatch)){
         alertManager.sendAlert(`Change to Device: ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
       }
     });
