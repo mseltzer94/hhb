@@ -1,8 +1,8 @@
 "use strict";
 var hhbDevice = require('./hhbDevice').default;
 var deviceStateMap = {
-  '02': 'Closed',
-  '01': 'Open',
+  '01': 'Closed',
+  '02': 'Open',
 	'FF': 'Unknown'
 }
 class tiltDevice extends hhbDevice {

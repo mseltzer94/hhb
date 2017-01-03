@@ -8,7 +8,7 @@ var alertManager = require('./alerts/alertManager');
 var log4js = require('log4js');
 
 log4js.loadAppender('file');
-log4js.addAppender(log4js.appenders.file('logs/hhb.log'), 'hhb');
+log4js.addAppender(log4js.appenders.file('./logs/hhb.log'), 'hhb');
 var logger = log4js.getLogger('hhb');
 logger.setLevel('INFO');
 
@@ -66,12 +66,12 @@ function manageAlerts() {
     var newState = _.get(devices, `${alert.macAddress}.${alert.field}`);
     var isStartup = !oldState && newState;
     var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase()
-    var isAlarmMatch = (!newState) ? false : newState.toUpperCase() == alert.fieldContents.toUpperCase();
+    var isAlertMatch = (!newState) ? false : newState.toUpperCase() == alert.fieldContents.toUpperCase();
     var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
     var isVacationOnly = _.get(alert, 'isVacationOnly');
-    if (isChangeDetected &&(isAlarmMatch || shouldSendOnResolve) || (isStartup && isAlarmMatch)){
+    if (isChangeDetected &&(isAlertMatch || shouldSendOnResolve) || (isStartup && isAlertMatch)){
       if ((isVacationOnly && isVacationMode) || !isVacationOnly){
-        alertManager.sendAlert(`${(isAlarmMatch ? "New Alert": "Resolved")}: ${alert.message}`, `${new Date()}: ${alert.message} \n Details: ${JSON.stringify(devices[alert.macAddress])}`);
+        alertManager.sendAlert(`${(isAlertMatch ? "New Alert": "Resolved")}: ${alert.message}`, `${new Date()}: ${alert.message} \n Details: ${JSON.stringify(devices[alert.macAddress])}`);
       }
     }
   });

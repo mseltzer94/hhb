@@ -19,7 +19,7 @@
     {
       "field": "deviceState",
       "fieldContents": "Open",
-      "macAddress": "Garage Door Sensor",
+      "macAddress": "000D6F000000B399",
       "message": "Garage door open",
 			"vacationOnly": true,
       "sendOnResolve": true
