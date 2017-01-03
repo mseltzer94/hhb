@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
     var status = homeMonitor.getStatus();
     var errorMessage = homeMonitor.getErrorMessage();
     var lastContact = homeMonitor.getLastContact();
-    var isVactionMode = homeMonitor.getVacationModeStatus();
+    var isVacationMode = homeMonitor.getVacationModeStatus();
     res.json({devices: devices, status: status, errorMessage: errorMessage, lastContact:lastContact, isVacationMode:isVacationMode});
 });
 
