@@ -6,6 +6,7 @@ var alerting = require('./alerts/alert.json');
 var mailer = require('./alerts/mailer');
 var alertManager = require('./alerts/alertManager');
 var log4js = require('log4js');
+var fs = require('fs');
 
 log4js.loadAppender('file');
 log4js.addAppender(log4js.appenders.file('./logs/hhb.log'), 'hhb');
@@ -13,9 +14,10 @@ var logger = log4js.getLogger('hhb');
 logger.setLevel('INFO');
 
 const DELAY = 1000; //msec
-const RETRYDELAY = 5000;
+const RETRYDELAY = 5000000;
 const LOGDELAY = 1000;
 const SERIAL_PORT = '/dev/ttyUSB0';
+var lastContact = null;
 
 //hash table of devices, MAC address is the key
 var devices = []; //current device info
@@ -23,13 +25,20 @@ var devicesLastRead = []; //last read device info
 var hhbStatus = "Not Ready"
 var hhbErrorMessage = null;
 var attempt = 0;
-var isVacationMode = process.env.ISVACATIONMODE;
+var isVacationMode = true; //default to noisier
+fs.readFile('isVacationMode', 'utf8', function(err, contents) {
+  if (!err){
+    isVacationMode = (contents.trim() == 'true');
+  }
+  if (isVacationMode){
+    console.log("Vacation Mode Enabled")
+  } else {
+    console.log("Vacation Mode Disabled")
+  }
 
-if (isVacationMode){
-  console.log("Vacation Mode Enabled")
-} else {
-  console.log("Vacation Mode Disabled")
-}
+});
+
+
 
 var port = new SerialPort(SERIAL_PORT, { autoOpen: false, baudRate:38400, parser: SerialPort.parsers.readline('\n') });
 
@@ -44,14 +53,15 @@ function connectToHhb(){
       console.log("Connected to HHB");
       hhbStatus = "Ready. Connected to HHB";
       port.on('data', function (data) {
-          if (data != "STATE=NEW" && data != "STATE=DONE" && data.split(',').length == 17){
-            var dev = deviceManager.createDevice(data);
-						if (dev && dev.macAddress){
-							devices[dev.macAddress] = dev;
-            	manageAlerts();
-            	devicesLastRead[dev.macAddress] = dev;
-						}
-          }
+        lastContact = new Date();
+        if (data != "STATE=NEW" && data != "STATE=DONE" && data.split(',').length == 17){
+          var dev = deviceManager.createDevice(data);
+					if (dev && dev.macAddress){
+						devices[dev.macAddress] = dev;
+          	manageAlerts();
+          	devicesLastRead[dev.macAddress] = dev;
+					}
+        }
       });
 
       setInterval(function(){port.write('S')}, DELAY);
@@ -126,7 +136,25 @@ exports.getDevices = function(){
 exports.getStatus = function(){
   return hhbStatus;
 }
+exports.getLastContact = function(){
+  return lastContact;
+}
 exports.getErrorMessage = function(){
   return hhbErrorMessage;
+}
+exports.getVacationModeStatus = function(){
+  return isVacationMode;
+}
+exports.setVacationModeStatus = function(vacationMode, cb){
+  isVacationMode = vacationMode;
+  if (isVacationMode){
+    console.log("Vacation Mode Enabled")
+  } else {
+    console.log("Vacation Mode Disabled")
+  }
+  fs.writeFile('isVacationMode', vacationMode, function(err) {
+    cb(err);
+});
+
 }
 exports.connectToHhb = connectToHhb;
