@@ -22,16 +22,17 @@
   <div ng-controller="AppCtrl" ng-cloak ng-init="getDevices()">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>
+        <h2 flex="40">
           <span>Seltzer Home</span>
-          <md-button class="md-raised">
+          <md-button disabled="true" class="md-warn">
             <md-icon ng-if="isReady() == true" class="material-icons">checkmark</md-icon>
             <md-icon ng-if="isReady() == false" class="material-icons">error</md-icon>
             {{status}}
           </md-button>
         </h2>
-        <span flex></span>
-        <md-button class="md-raised" ng-click="setVacationMode()">
+        <span flex>
+        </span>
+        <md-button flex="nogrow" class="md-raised" ng-click="setVacationMode()">
           {{isVacationMode == true ? 'Vacation Mode':'Home Mode'}}
           <md-progress-linear ng-if="isSettingVacationMode" md-mode="indeterminate"></md-progress-linear>
         </md-button>
