@@ -6,7 +6,7 @@
       "fieldContents": "Open",
       "macAddress": "000D6F000000DA3A",
       "message": "Door has been opened",
-      "vacationOnly": true,
+      "isVacationOnly": true,
       "sendOnResolve": true
     },
 		{
@@ -21,7 +21,7 @@
       "fieldContents": "Open",
       "macAddress": "000D6F000000B399",
       "message": "Garage door open",
-			"vacationOnly": true,
+			"isVacationOnly": true,
       "sendOnResolve": true
     }
   ]
