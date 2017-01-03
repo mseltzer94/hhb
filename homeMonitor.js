@@ -61,13 +61,13 @@ function manageAlerts() {
   //generic monitoring (across all devices)
   var genericAlarms = [{
     "alertField": "deviceAlerts",
-    "deviceState": "Low Battery",
+    "deviceAlerts": "Low Battery",
     "message": "Low Battery",
     "sendOnResolve": true
   },
   {
     "alertField": "deviceAlerts",
-    "deviceState": "Device Offline",
+    "deviceAlerts": "Device Offline",
     "message": "Device Offline",
     "sendOnResolve": true
   }];
