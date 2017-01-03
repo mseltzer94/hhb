@@ -14,6 +14,7 @@ logger.setLevel('INFO');
 
 const DELAY = 1000; //msec
 const RETRYDELAY = 5000;
+const LOGDELAY = 20000;
 const SERIAL_PORT = '/dev/ttyUSB0';
 
 //hash table of devices, MAC address is the key
@@ -104,16 +105,20 @@ function manageAlerts() {
       }
     });
   });
-	//logging on deviceState
-	deviceAddrs.forEach(function(macAddress){
-			var oldState = _.get(devicesLastRead, `${macAddress}.deviceState`);
-      var newState = _.get(devices, `${macAddress}.deviceState`);
-			if (!oldState || (newState && newState.toUpperCase() != newState.toUpperCase())){
-				logger.info(devices[macAddress].deviceName);
-				logger.info("CHANGE: " + oldState + "->" + newState);
-			}
-	})
 }
+var lastLogged = [];
+setTimeout(function(){
+  var deviceAddrs = _.keys(devices);
+  deviceAddrs.forEach(function(macAddress){
+      var oldState = _.get(lastLogged, `${macAddress}.deviceState`);
+      var newState = _.get(devices, `${macAddress}.deviceState`);
+      if (!oldState || (newState && newState.toUpperCase() != newState.toUpperCase())){
+        logger.info(devices[macAddress].deviceName);
+        logger.info("CHANGE: " + oldState + "->" + newState);
+      }
+      lastLogged[macAddress] = devices[macAddress];
+  })
+}, LOGDELAY);
 
 exports.getDevices = function(){
   return _.values(devices);
