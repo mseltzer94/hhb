@@ -3,7 +3,11 @@ var _ = require('lodash');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var request = require('request');
 var homeMonitor = require('./homeMonitor');
+
+const SENDDELAY = 5000;
+const FRONTENDSERVER = 'http://localhost:9000';
 
 var port = process.env.PORT || 8080;
 var router = express.Router();
@@ -36,6 +40,18 @@ router.post('/setVacationMode', function(req, res){
     res.status(400).send();
   }
 });
+
+setInterval(function(){
+  var devices = homeMonitor.getDevices();
+  var status = homeMonitor.getStatus();
+  var errorMessage = homeMonitor.getErrorMessage();
+  var lastContact = homeMonitor.getLastContact();
+  var isVacationMode = homeMonitor.getVacationModeStatus();
+  request.post(FRONTENDSERVER + '/api/updateDeviceData', {form: {devices: devices, status: status, errorMessage: errorMessage, lastContact:lastContact, isVacationMode:isVacationMode}},
+  function(err,httpResponse, body){
+    console.log(body);
+  });
+}, SENDDELAY);
 
 app.use('/api', router);
 app.use(express.static(__dirname));
