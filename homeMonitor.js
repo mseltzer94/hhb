@@ -89,7 +89,7 @@ function manageAlerts() {
         } else {
           devices[alert.macAddress].alert = false;
         }
-        alertManager.sendAlert(`${(isAlertMatch ? "New Alert": "Resolved")}: ${alert.message}`, `${new Date()}: ${alert.message}`);
+        alertManager.sendAlert(`${devices[alert.macAddress].deviceName}: ${newState}`, `Occured at: ${new Date()}`);
       }
     }
   });
@@ -118,7 +118,7 @@ function manageAlerts() {
       var isVacationOnly = _.get(alert, 'isVacationOnly');
       if (isChangeDetected &&(isAlertMatch || shouldSendOnResolve) || (isStartup && isAlertMatch)){
         if ((isVacationOnly && isVacationMode) || !isVacationOnly){
-          alertManager.sendAlert(`Device Alert (${devices[macAddress].deviceName}): ${newState}`, `${new Date()}: deviceName: ${devices[macAddress].deviceName})went to ${newState}`);
+          alertManager.sendAlert(`${devices[macAddress].deviceName}: ${newState}`, `Occured at: ${new Date()}`);
         }
       }
     });
