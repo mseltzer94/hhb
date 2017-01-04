@@ -5,7 +5,7 @@
       "field": "deviceState",
       "fieldContents": "Open",
       "macAddress": "000D6F000000DA3A",
-      "message": "Door has been opened",
+      "message": "Front door has been opened",
       "isVacationOnly": true,
       "sendOnResolve": true
     },
@@ -20,7 +20,7 @@
       "field": "deviceState",
       "fieldContents": "Open",
       "macAddress": "000D6F000000B399",
-      "message": "Garage door open",
+      "message": "Garage door has been opened",
 			"isVacationOnly": true,
       "sendOnResolve": true
     }
