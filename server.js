@@ -41,6 +41,25 @@ router.post('/setVacationMode', function(req, res){
   }
 });
 
+router.post('/alertRules', function(req, res){
+  if (req && req.body && req.body.hasOwnProperty('alerts')){
+    homeMonitor.setAlertRules(req.body.alerts, function(err){
+      if (err){
+        res.status(500).send('Failed to save alert rules');
+      } else {
+        res.status(200).send();
+      }
+    });
+  } else {
+    res.status(400).send();
+  }
+});
+
+router.get('/alertRules', function(req, res){
+  res.status(200).send({"alerts" : homeMonitor.getAlertRules()});
+  }
+);
+
 setInterval(function(){
   var devices = homeMonitor.getDevices();
   var status = homeMonitor.getStatus();

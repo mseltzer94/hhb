@@ -19,7 +19,7 @@ transporter.verify(function(error, success) {
    if (error) {
         console.log(error);
         console.log("Check connection and credentials for email alert sending");
-        process.exit(0);
+        //process.exit(0);
    } else {
         console.log('Email Service: Ready to send alerts.');
    }

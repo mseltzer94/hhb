@@ -35,6 +35,9 @@
         </h2>
         <span flex>
         </span>
+        <md-button flex="nogrow" ng-click="toggleAlertRules()" aria-label="alerts" class="md-raised">
+          Alert Rules
+        </md-button>
         <md-button flex="nogrow" ng-click="setVacationMode()"href="/logs/hhb.log" target="_blank" aria-label="logs" >
           <md-icon ng-if="isReady() == true" class="material-icons">history</md-icon>
         </md-button>
@@ -59,6 +62,25 @@
               {{device.deviceState}}</md-button>
           </md-card-actions>
         </md-card-title>
+        <div ng-if="showAlertRules" style="background: aliceblue">
+          {{alertRules[device.macAddress]}}
+          <div ng-repeat = 'alertRule in alertRules[device.macAddress]'>
+            <md-card>
+              <md-card-title>
+                <md-card-actions>
+                  <md-button disabled="true" class="md-primary">
+                    Alert on {{alertRule.field}} changed to {{alertRule.fieldContents}}</md-button>
+                  <md-button>Vacation Only: {{alertRule.isVacationOnly || 'false'}}</md-button>
+                  <md-button>Send On Resolve: {{alertRule.sendOnResolve}}</md-button>
+                </md-card-actions>
+              </md-card-title>
+            </md-card>
+          </div>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button class='md-primary' ng-click="addRule(macAddress)">Add Rule</md-button>
+            <md-button>Save</md-button>
+          </md-card-actions>
+        </div>
 
       </md-card>
     </div>
