@@ -2,7 +2,7 @@
 
 ###Contents
 [Description](#Description)
-[Alerts](#Alerts)
+[Alerts](##Alerts)
 
 ##Description
 
@@ -47,7 +47,7 @@ export MAILEREMAILPASSWORD=emailpassword
 * Settings (currently email addresses used for alerting) can be updated frm the front end
 * Alert rules can be edited from the front end
 
-## Alerts
+##Alerts
 
 There are two kinds of alerts:
 * User created device specific alerts
