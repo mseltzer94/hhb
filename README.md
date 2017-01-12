@@ -1,5 +1,6 @@
 # Home Heartbeat (HHB) Alarm and Monitoring Service
 
+![Monitoring Hub](https://cloud.githubusercontent.com/assets/2838173/21910209/4bdc8590-d8d8-11e6-9ea1-9373a0213cbb.png)
 ###Contents:
 * [Description](#description)
 * [Requirements](#requirements)
@@ -53,6 +54,8 @@ export MAILEREMAILPASSWORD=emailpassword
 * Alert rules can be edited from the front end
 
 ##Alerts
+
+[Alerts in Monitoring Hub](https://cloud.githubusercontent.com/assets/2838173/21910308/ab86c9e2-d8d8-11e6-9727-6b77f6cad672.png)
 
 There are two kinds of alerts:
 * User created device specific alerts
