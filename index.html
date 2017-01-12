@@ -62,23 +62,37 @@
               {{device.deviceState}}</md-button>
           </md-card-actions>
         </md-card-title>
-        <div ng-if="showAlertRules" style="background: aliceblue">
-          {{alertRules[device.macAddress]}}
+        <div ng-if="showAlertRules">
           <div ng-repeat = 'alertRule in alertRules[device.macAddress]'>
-            <md-card>
+            <md-card style="background: aliceblue">
               <md-card-title>
                 <md-card-actions>
-                  <md-button disabled="true" class="md-primary">
-                    Alert on {{alertRule.field}} changed to {{alertRule.fieldContents}}</md-button>
-                  <md-button>Vacation Only: {{alertRule.isVacationOnly || 'false'}}</md-button>
-                  <md-button>Send On Resolve: {{alertRule.sendOnResolve}}</md-button>
+                  Alert on
+                  <md-input-container>
+                    <label>Field name</label>
+                    <md-select required ng-model="alertRule.field">
+                      <md-option ng-repeat="param in params" ng-value="param" ng-disabled="$index === 1">
+                        {{param}}
+                      </md-option>
+                  </md-input-container>
+                  changed to
+                  <md-input-container>
+                    <label> Field Contents </label>
+                    <input ng-model="alertRule.fieldContents">
+                  </md-input-container>
+                  <md-switch ng-model="alertRule.isVacationOnly">
+                    {{alertRule.isVacationOnly ? 'Vacation Only' : 'Vacation or Home'}}
+                  </md-switch>
+                  <md-switch ng-model="alertRule.sendOnResolve">
+                    {{alertRule.sendOnResolve ? 'Send after Alert Resolved' : 'No notification of Alert Resolved'}}
+                  </md-switch>
                 </md-card-actions>
               </md-card-title>
             </md-card>
           </div>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button class='md-primary' ng-click="addRule(macAddress)">Add Rule</md-button>
-            <md-button>Save</md-button>
+            <md-button class='md-primary' ng-click="addRule(device.macAddress)">Add Rule</md-button>
+            <md-button ng-click="saveRules()">Save</md-button>
           </md-card-actions>
         </div>
 

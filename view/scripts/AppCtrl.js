@@ -5,6 +5,26 @@ angular.module('hhb', ['ngMaterial'])
   $scope.showAlertRules = false;
   $scope.alertRules = [];
 
+  $scope.params = [
+    'stateRecordID',      //Field 1
+    'zigBeeBindingID',    //Field 2
+    'deviceCapabilities', //Field 3
+    'deviceType',         //Field 4
+    'deviceState',        //Field 5
+    'deviceStateTimer',   //Field 6
+    'deviceAlerts',       //Field 7
+    'deviceNameIndex',    //Field 8
+    'deviceConfiguration',//Field 9
+    'aliveUpdateTimer',   //Field 10
+    'updateFlags',        //Field 11
+    'undefined1',         //Field 12
+    'deviceParameter',    //Field 13
+    'undefined2',         //Field 14
+    'pendingUpdateTimer', //Field 15
+    'macAddress',         //Field 16
+    'deviceName'          //Field 17
+  ];
+
   //polling
   setInterval(function(){$scope.getDevices()}, 5000);
 
@@ -51,7 +71,6 @@ angular.module('hhb', ['ngMaterial'])
       $scope.isVacationMode = res.data.isVacationMode;
       $scope.lastContact = res.data.lastContact;
       $scope.status = res.data.status;
-      $scope.alertRules = [];
     },
     function(res){
       $scope.updated = false;
@@ -59,9 +78,13 @@ angular.module('hhb', ['ngMaterial'])
   }
 
   $scope.getAlertRules = function(){
+    $scope.alertRules = [];
     $http.get('/api/alertRules').then(function(res){
       res.data.alerts.forEach(function(alert){
-        $scope.alertRules[alert.macAddress] = alert;
+        if (!$scope.alertRules[alert.macAddress]){
+          $scope.alertRules[alert.macAddress] = [];
+        }
+        $scope.alertRules[alert.macAddress].push(alert);
       })
     });
 
@@ -86,23 +109,19 @@ angular.module('hhb', ['ngMaterial'])
     }
   }
 
-  // $scope.getAlertRulesByMacAddress = function(macAddress){
-  //   var matches = [];
-  //   $scope.alertRules.forEach(function(alertRule){
-  //     if (alertRule.macAddress == macAddress){
-  //       matches.push(alertRule);
-  //     }
-  //   });
-  //   return matches;
-  // }
-
   $scope.addRule = function(macAddress){
-    $scope.alertRules.push({'macAddress':macAddress});
+    $scope.alertRules[macAddress].push({'macAddress':macAddress});
   }
 
   $scope.saveRules = function(){
     $scope.isSendingRules = true;
-    $http.post('/api/alertRules', {'alerts':$scope.alertRules}).then(function sucess(res){
+    var rules = []
+    for (var macAddress in $scope.alertRules){
+      $scope.alertRules[macAddress].forEach(function(alert){
+        rules.push(alert);
+      })
+    }
+    $http.post('/api/alertRules', {'alerts':rules}).then(function sucess(res){
       $scope.isSendingRules = false;
     }, function failed(res){
       $scope.isSendingRules = false;
