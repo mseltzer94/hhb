@@ -20,7 +20,7 @@
 <html>
 <body ng-app="hhb">
   <div ng-controller="AppCtrl" ng-cloak ng-init="getDevices()">
-    <md-toolbar>
+    <md-toolbar class="md-small">
       <div class="md-toolbar-tools">
         <h2 flex="40">
           <span>Seltzer Home</span>
@@ -35,13 +35,18 @@
         </h2>
         <span flex>
         </span>
-        <md-button flex="nogrow" href="/logs/hhb.log" target="_blank" aria-label="logs" >
-          <md-icon ng-if="isReady() == true" class="material-icons">history</md-icon>
+        <md-button flex="nogrow" ng-click="toggleAlertRules()" ng-class="showAlertRules ? 'md-raised': ''" aria-label="alerts">
+          Alert Rules
         </md-button>
-        <md-button flex="nogrow" class="md-raised" ng-click="setVacationMode()" aria-label="toggle vacation mode">
-          {{isVacationMode == true ? 'Vacation Mode':'Home Mode'}}
-          <md-progress-linear ng-if="isSettingVacationMode" md-mode="indeterminate"></md-progress-linear>
-        </md-button>
+        <div layout="row" layout-xs="column">
+          <md-button flex="nogrow" ng-click="setVacationMode()"href="/logs/hhb.log" target="_blank" aria-label="logs" >
+            <md-icon class="material-icons">history</md-icon>
+          </md-button>
+          <md-button flex="nogrow" class="md-raised" ng-click="setVacationMode()" aria-label="toggle vacation mode">
+            {{isVacationMode == true ? 'Vacation Mode':'Home Mode'}}
+            <md-progress-linear ng-if="isSettingVacationMode" md-mode="indeterminate"></md-progress-linear>
+          </md-button>
+        </div>
       </div>
     </md-toolbar>
     <div ng-repeat = 'device in devices'>
@@ -59,6 +64,41 @@
               {{device.deviceState}}</md-button>
           </md-card-actions>
         </md-card-title>
+        <div ng-if="showAlertRules">
+          <div ng-if="isLoadingAlertRules" layout="row" layout-sm="column" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+          </div>
+          <div ng-repeat = 'alertRule in alertRules[device.macAddress]'>
+            <md-card style="background: aliceblue" layout="row">
+              <span flex='10'></span>
+              <span flex='30'>
+                Alert on
+                <md-input-container>
+                  <md-select required ng-model="alertRule.fieldContents" aria-label="field">
+                    <md-option ng-repeat="deviceState in deviceStates[device.deviceType]" ng-value="deviceState">
+                      {{deviceState}}
+                    </md-option>
+                </md-input-container>
+              </span>
+              <md-card-actions flex='40'>
+
+                <md-switch ng-model="alertRule.isVacationOnly">
+                  {{alertRule.isVacationOnly ? 'Vacation Only' : 'Vacation or Home'}}
+                </md-switch>
+                <md-switch ng-model="alertRule.sendOnResolve">
+                  {{alertRule.sendOnResolve ? 'Notify on Resolved' : 'No notification of Alert Resolved'}}
+                </md-switch>
+              </md-card-actions>
+              <md-button ng-click="deleteAlert(device.macAddress, $index)" flex>
+                <md-icon class="material-icons">delete</md-icon></md-button>
+              </md-button>
+            </md-card>
+          </div>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button class='md-primary' ng-click="addRule(device.macAddress)">Add Rule</md-button>
+            <md-button ng-click="saveRules()">Save</md-button>
+          </md-card-actions>
+        </div>
 
       </md-card>
     </div>
