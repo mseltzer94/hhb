@@ -35,17 +35,8 @@
         </h2>
         <span flex>
         </span>
-<<<<<<< HEAD
-        <md-button flex="nogrow" href="/logs/hhb.log" target="_blank" aria-label="logs" >
-          <md-icon ng-if="isReady() == true" class="material-icons">history</md-icon>
-        </md-button>
-        <md-button flex="nogrow" class="md-raised" ng-click="setVacationMode()" aria-label="toggle vacation mode">
-          {{isVacationMode == true ? 'Vacation Mode':'Home Mode'}}
-          <md-progress-linear ng-if="isSettingVacationMode" md-mode="indeterminate"></md-progress-linear>
-=======
         <md-button flex="nogrow" ng-click="toggleAlertRules()" aria-label="alerts">
           Alert Rules
->>>>>>> 11bb449623f652cdf73974a8493073f299eb1e36
         </md-button>
         <div layout="row" layout-xs="column">
           <md-button flex="nogrow" ng-click="setVacationMode()"href="/logs/hhb.log" target="_blank" aria-label="logs" >
