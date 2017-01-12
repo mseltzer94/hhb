@@ -65,6 +65,9 @@
           </md-card-actions>
         </md-card-title>
         <div ng-if="showAlertRules">
+          <div ng-if="isLoadingAlertRules" layout="row" layout-sm="column" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+          </div>
           <div ng-repeat = 'alertRule in alertRules[device.macAddress]'>
             <md-card style="background: aliceblue" layout="row">
               <span flex='10'></span>
