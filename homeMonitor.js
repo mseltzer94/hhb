@@ -156,9 +156,9 @@ exports.getVacationModeStatus = function(){
 exports.setVacationModeStatus = function(vacationMode, cb){
   isVacationMode = vacationMode;
   if (isVacationMode){
-    console.log("Vacation Mode Enabled")
+    console.log(new Date(), "Vacation Mode Enabled")
   } else {
-    console.log("Vacation Mode Disabled")
+    console.log(new Date(), "Vacation Mode Disabled")
   }
   fs.writeFile('isVacationMode', vacationMode, function(err) {
     cb(err);
