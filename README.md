@@ -1,10 +1,15 @@
 # Home Heartbeat (HHB) Alarm and Monitoring Service
 
-###Contents
-[Description](#Description)
-[Alerts](##Alerts)
+###Contents:
+* [Description](#description)
+* [Requirements](#requirements)
+* [Installation](#installation)
+* [Steps to Run](#steps-to-run)
+* [Web Server](#web-server)
+* [Alerts](#alerts)
+* [Logging](#logging)
 
-##Description
+## Description
 
 Eaton's HomeHeartbeat provides a security hub with multiple sensor types including:
 - Water leak sensors
@@ -40,7 +45,7 @@ export MAILEREMAILPASSWORD=emailpassword
 ## My setup
 - Rasperry Pi B+ running Jessie connected over USB to Home Heartbeat
 
-## Web Server (front end)
+## Web Server
 * The server is only available locally (inside a network) for security reasons
 * The front end may viewed at localhost:9000
 * It displays all devices, the current status, and allows the user to set Home or Vacation mode rules (see more in alerts)
