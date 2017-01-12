@@ -55,7 +55,7 @@ export MAILEREMAILPASSWORD=emailpassword
 
 ##Alerts
 
-[Alerts in Monitoring Hub](https://cloud.githubusercontent.com/assets/2838173/21910308/ab86c9e2-d8d8-11e6-9727-6b77f6cad672.png)
+![Alerts in Monitoring Hub](https://cloud.githubusercontent.com/assets/2838173/21910308/ab86c9e2-d8d8-11e6-9727-6b77f6cad672.png)
 
 There are two kinds of alerts:
 * User created device specific alerts
