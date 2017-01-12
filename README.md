@@ -1,6 +1,8 @@
 # Home Heartbeat (HHB) Alarm and Monitoring Service
 
-## Description
+[Description](##Description)
+
+##Description
 
 Eaton's HomeHeartbeat provides a security hub with multiple sensor types including:
 - Water leak sensors
