@@ -12,7 +12,7 @@
 
 ## Description
 
-Eaton's HomeHeartbeat provides a security hub with multiple sensor types including:
+Eaton's Home Heartbeat provides a security hub with multiple sensor types including:
 - Water leak sensors
 - Open/Closed door sensors
 - Garage door tilt sensors
