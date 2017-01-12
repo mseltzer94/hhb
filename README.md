@@ -48,7 +48,7 @@ export MAILEREMAILPASSWORD=emailpassword
 
 ## Web Server
 * The server is only available locally (inside a network) for security reasons
-* The front end may viewed at localhost:9000
+* The front end may viewed at localhost:8080
 * It displays all devices, the current status, and allows the user to set Home or Vacation mode rules (see more in alerts)
 * Settings (currently email addresses used for alerting) can be updated frm the front end
 * Alert rules can be edited from the front end
