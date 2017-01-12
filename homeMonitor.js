@@ -34,9 +34,9 @@ fs.readFile('isVacationMode', 'utf8', function(err, contents) {
     fs.setVacationModeStatus(isVacationMode);
   }
   if (isVacationMode){
-    console.log("Vacation Mode Enabled")
+    logger.info("Vacation Mode Enabled")
   } else {
-    console.log("Vacation Mode Disabled")
+    logger.info("Vacation Mode Disabled")
   }
 
 });
@@ -53,7 +53,7 @@ function connectToHhb(){
       //retry every second
       setInterval(function(){ connectToHhb()}, RETRYDELAY);
     } else {
-      console.log("Connected to HHB");
+      logger.info("Connected to HHB");
       hhbStatus = "Active";
       port.on('data', function (data) {
         lastContact = new Date();
@@ -156,9 +156,9 @@ exports.getVacationModeStatus = function(){
 exports.setVacationModeStatus = function(vacationMode, cb){
   isVacationMode = vacationMode;
   if (isVacationMode){
-    console.log(new Date(), "Vacation Mode Enabled")
+    logger.info("Vacation Mode Enabled");
   } else {
-    console.log(new Date(), "Vacation Mode Disabled")
+    logger.info("Vacation Mode Disabled");
   }
   fs.writeFile('isVacationMode', vacationMode, function(err) {
     cb(err);
@@ -171,10 +171,21 @@ exports.getAlertRules = function(){
 
 exports.setAlertRules = function(alerts, cb){
   alerting.alerts = alerts;
-  console.log("Alerts updated:", alerting);
+  logger.info("Alerts updated: ", alerting);
   fs.writeFile('alerts/alert.json', JSON.stringify(alerting), function(err) {
     cb(err);
-});
+  });
+}
 
+exports.getAlertEmailAddresses = function(){
+  return alerting.emails;
+}
+
+exports.setAlertEmailAddresses = function(emails, cb){
+  alerting.emails = emails;
+  logger.info("Alerts updated: ", alerting);
+  fs.writeFile('alerts/alert.json', JSON.stringify(alerting), function(err) {
+    cb(err);
+  });
 }
 exports.connectToHhb = connectToHhb;

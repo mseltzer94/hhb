@@ -59,6 +59,25 @@ router.get('/alertRules', function(req, res){
   }
 );
 
+router.post('/alertEmailAddresses', function(req, res){
+  if (req && req.body && req.body.hasOwnProperty('emails')){
+    homeMonitor.setAlertEmailAddresses(req.body.emails, function(err){
+      if (err){
+        res.status(500).send('Failed to save alert rules');
+      } else {
+        res.status(200).send();
+      }
+    });
+  } else {
+    res.status(400).send();
+  }
+});
+
+router.get('/alertEmailAddresses', function(req, res){
+  res.status(200).send({"emails" : homeMonitor.getAlertEmailAddresses()});
+  }
+);
+
 app.use('/api', router);
 app.use(express.static(__dirname));
 

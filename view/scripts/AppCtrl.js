@@ -1,5 +1,5 @@
 angular.module('hhb', ['ngMaterial'])
-.controller('AppCtrl', function($scope, $http, $mdToast) {
+.controller('AppCtrl', function($scope, $http, $mdToast, $mdDialog) {
   $scope.isSettingVacationMode = false;
   $scope.failedSettingVacationMode = false;
   $scope.showAlertRules = false;
@@ -127,6 +127,45 @@ angular.module('hhb', ['ngMaterial'])
       );
     });
   }
+
+  $scope.openSettings = function(){
+    $http.get('/api/alertEmailAddresses').then(function(res){
+      var confirm = $mdDialog.prompt()
+      .title('Enter email addresses to be alerted')
+      .textContent('Seperate multiple addresses with commas')
+      .placeholder('a@example.com,b@example.com')
+      .ariaLabel('emails')
+      .initialValue(res.data.emails)
+      .ok('OK')
+      .cancel('Cancel');
+
+      $mdDialog.show(confirm).then(function(result) {
+        $http.post('/api/alertEmailAddresses', {'emails':result}).then(
+          function(){
+            $mdToast.show(
+              $mdToast.simple()
+                .textContent('Saved!')
+                .hideDelay(3000)
+            );
+          }, function(){
+            $mdToast.show(
+              $mdToast.simple()
+                .textContent('Failed to save settings')
+                .hideDelay(3000)
+            );
+          }
+        )
+
+      });
+
+    }, function(){
+      $mdToast.show(
+        $mdToast.simple()
+          .textContent('Failed to retieve settings')
+          .hideDelay(3000)
+      );
+    }
+  )};
 
   $scope.deleteAlert = function(macAddress, index){
     $scope.alertRules[macAddress].splice(index, 1); //delete 1 element starting from given index
