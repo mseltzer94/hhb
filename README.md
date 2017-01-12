@@ -10,7 +10,7 @@ Eaton's HomeHeartbeat provides a security hub with multiple sensor types includi
 
 However, the device is currently limited because it has no online service or mechanism for sending alerts. **HHB Alarm and Monitoring Service** provides a service to view the current status of the Home Heartbeat and attached sensors and send alerts via email (and SMS).
 
-**Requirements**
+### Requirements
 - Node v6.9.2 or greater
 - USB serial FTDI driver
 - Homeheart beat is connected on serial port /dev/ttyUSB0 running at a baudRate of 38400
