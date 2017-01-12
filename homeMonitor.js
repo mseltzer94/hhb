@@ -89,7 +89,7 @@ function manageAlerts() {
         } else {
           devices[alert.macAddress].alert = false;
         }
-        alertManager.sendAlert(`${(isAlertMatch ? "New Alert": "Resolved")}: ${alert.message}`, `${new Date()}: ${alert.message} \n Details: ${JSON.stringify(devices[alert.macAddress])}`);
+        alertManager.sendAlert(`${devices[alert.macAddress].deviceName}: ${newState}`, `Occured at: ${new Date()}`);
       }
     }
   });
@@ -118,7 +118,7 @@ function manageAlerts() {
       var isVacationOnly = _.get(alert, 'isVacationOnly');
       if (isChangeDetected &&(isAlertMatch || shouldSendOnResolve) || (isStartup && isAlertMatch)){
         if ((isVacationOnly && isVacationMode) || !isVacationOnly){
-          alertManager.sendAlert(`Device Alert (${devices[macAddress].deviceName}): ${newState}`, `${new Date()}: ${newState} \n Details: ${JSON.stringify(devices[macAddress])}`);
+          alertManager.sendAlert(`${devices[macAddress].deviceName}: ${newState}`, `Occured at: ${new Date()}`);
         }
       }
     });
@@ -156,9 +156,9 @@ exports.getVacationModeStatus = function(){
 exports.setVacationModeStatus = function(vacationMode, cb){
   isVacationMode = vacationMode;
   if (isVacationMode){
-    console.log("Vacation Mode Enabled")
+    console.log(new Date(), "Vacation Mode Enabled")
   } else {
-    console.log("Vacation Mode Disabled")
+    console.log(new Date(), "Vacation Mode Disabled")
   }
   fs.writeFile('isVacationMode', vacationMode, function(err) {
     cb(err);
