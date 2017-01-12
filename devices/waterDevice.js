@@ -11,6 +11,7 @@ class waterDevice extends hhbDevice {
     this.update();
   }
   update(){
+    this.deviceType = 'waterDevice';
     this.deviceState = deviceStateMap[this.deviceState];
   }
 }

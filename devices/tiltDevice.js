@@ -11,6 +11,7 @@ class tiltDevice extends hhbDevice {
     this.update();
   }
   update(){
+    this.deviceType = 'tiltDevice';
     this.deviceState = deviceStateMap[this.deviceState];
   }
 }

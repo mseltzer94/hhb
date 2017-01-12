@@ -11,6 +11,7 @@ class openClosedDevice extends hhbDevice {
     this.update();
   }
   update(){
+    this.deviceType = 'openClosedDevice';
     this.deviceState = deviceStateMap[this.deviceState];
   }
 }

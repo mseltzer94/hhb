@@ -2,6 +2,15 @@ angular.module('hhb', ['ngMaterial'])
 .controller('AppCtrl', function($scope, $http) {
   $scope.isSettingVacationMode = false;
   $scope.failedSettingVacationMode = false;
+  $scope.showAlertRules = false;
+  $scope.alertRules = [];
+
+  $scope.deviceStates = {
+    'motionDevice':['motion', 'no motion'],
+    'openClosedDevice':['open', 'closed'],
+    'tiltDevice':['open', 'closed'],
+    'waterDevice':['wet', 'dry'],
+  }
 
   //polling
   setInterval(function(){$scope.getDevices()}, 5000);
@@ -19,8 +28,28 @@ angular.module('hhb', ['ngMaterial'])
     });
   }
 
+  $scope.getAlertRules = function(){
+    $scope.alertRules = [];
+    $http.get('/api/alertRules').then(function(res){
+      res.data.alerts.forEach(function(alert){
+        if (!$scope.alertRules[alert.macAddress]){
+          $scope.alertRules[alert.macAddress] = [];
+        }
+        $scope.alertRules[alert.macAddress].push(alert);
+      })
+    });
+
+  }
+
   $scope.isReady = function (){
     return $scope.status == "Active";
+  }
+
+  $scope.toggleAlertRules = function(){
+    $scope.showAlertRules = !$scope.showAlertRules;
+    if ($scope.showAlertRules){
+      $scope.getAlertRules();
+    }
   }
 
   $scope.getLiveStatus = function(){
@@ -29,6 +58,25 @@ angular.module('hhb', ['ngMaterial'])
     } else {
       return 'Failed to update'
     }
+  }
+
+  $scope.addRule = function(macAddress){
+    $scope.alertRules[macAddress].push({'macAddress':macAddress});
+  }
+
+  $scope.saveRules = function(){
+    $scope.isSendingRules = true;
+    var rules = []
+    for (var macAddress in $scope.alertRules){
+      $scope.alertRules[macAddress].forEach(function(alert){
+        rules.push(alert);
+      })
+    }
+    $http.post('/api/alertRules', {'alerts':rules}).then(function sucess(res){
+      $scope.isSendingRules = false;
+    }, function failed(res){
+      $scope.isSendingRules = false;
+    });
   }
 
   $scope.setVacationMode = function(){
@@ -42,5 +90,9 @@ angular.module('hhb', ['ngMaterial'])
       $scope.failedSettingVacationMode = true;
       $scope.isSettingVacationMode = false;
     });
+  }
+
+  $scope.deleteAlert = function(macAddress, index){
+    $scope.alertRules[macAddress].splice(index, 1); //delete 1 element starting from given index
   }
 });

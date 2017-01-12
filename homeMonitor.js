@@ -162,6 +162,18 @@ exports.setVacationModeStatus = function(vacationMode, cb){
   }
   fs.writeFile('isVacationMode', vacationMode, function(err) {
     cb(err);
+  });
+}
+
+exports.getAlertRules = function(){
+  return alerting.alerts;
+}
+
+exports.setAlertRules = function(alerts, cb){
+  alerting.alerts = alerts;
+  console.log("Alerts updated:", alerting);
+  fs.writeFile('alerts/alert.json', JSON.stringify(alerting), function(err) {
+    cb(err);
 });
 
 }
