@@ -1,6 +1,6 @@
-**Home Heartbeat (HHB) Alarm and Monitoring Service**
+# Home Heartbeat (HHB) Alarm and Monitoring Service
 
-**Description**
+## Description
 
 Eaton's HomeHeartbeat provides a security hub with multiple sensor types including:
 - Water leak sensors
@@ -10,18 +10,18 @@ Eaton's HomeHeartbeat provides a security hub with multiple sensor types includi
 
 However, the device is currently limited because it has no online service or mechanism for sending alerts. **HHB Alarm and Monitoring Service** provides a service to view the current status of the Home Heartbeat and attached sensors and send alerts via email (and SMS).
 
-# Requirements
+## Requirements
 - Node v6.9.2 or greater
 - USB serial FTDI driver
 - Homeheart beat is connected on serial port /dev/ttyUSB0 running at a baudRate of 38400
 - A gmail account (recommended to create a separate email account specifically for the service as you must [enable less secure apps](https://www.google.com/settings/security/lesssecureapps))
 
-# Installation
+## Installation
 - [Install](http://www.kolinahr.com/documentation/home-heartbeat/usb-drivers-for-the-home-heartbeat/)  the appropriate FTDI serial driver (MacOS, Linux, Windows)
 - Clone this repository
 - In the cloned folder, install depedencies by running ``npm install``
 
-# Steps to Run**
+## Steps to Run**
 1. Setup environmental variables for email alerts (assumes you are using gmail, which is currently the only support host, for alerting):
 ```
 export MAILEREMAILADDRESS=email@gmail.com 
@@ -33,17 +33,17 @@ export MAILEREMAILPASSWORD=emailpassword
   * `node start` will start the service as a normal process
   * `forever start -c "npm start" ./` will start the service to be run in the background (require forever to be install, run ``npm install -g forever`` before running this command)
 
-# My setup
+## My setup
 - Rasperry Pi B+ running Jessie connected over USB to Home Heartbeat
 
-# Web Server (front end)
+## Web Server (front end)
 * The server is only available locally (inside a network) for security reasons
 * The front end may viewed at localhost:9000
 * It displays all devices, the current status, and allows the user to set Home or Vacation mode rules (see more in alerts)
 * Settings (currently email addresses used for alerting) can be updated frm the front end
 * Alert rules can be edited from the front end
 
-# Alerts
+## Alerts
 
 There are two kinds of alerts:
 * User created device specific alerts
@@ -61,7 +61,7 @@ There are two kinds of alerts:
 * Generic alerts
   * Alerts are sent out for all devices for low battery, out of range, or other failures reported by the Home Heartbeat
 
-# Logging
+## Logging
 * A log of all changes to devices (with timestamps) is placed into logs/hhb.log
 
 
