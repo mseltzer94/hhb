@@ -5,25 +5,12 @@ angular.module('hhb', ['ngMaterial'])
   $scope.showAlertRules = false;
   $scope.alertRules = [];
 
-  $scope.params = [
-    'stateRecordID',      //Field 1
-    'zigBeeBindingID',    //Field 2
-    'deviceCapabilities', //Field 3
-    'deviceType',         //Field 4
-    'deviceState',        //Field 5
-    'deviceStateTimer',   //Field 6
-    'deviceAlerts',       //Field 7
-    'deviceNameIndex',    //Field 8
-    'deviceConfiguration',//Field 9
-    'aliveUpdateTimer',   //Field 10
-    'updateFlags',        //Field 11
-    'undefined1',         //Field 12
-    'deviceParameter',    //Field 13
-    'undefined2',         //Field 14
-    'pendingUpdateTimer', //Field 15
-    'macAddress',         //Field 16
-    'deviceName'          //Field 17
-  ];
+  $scope.deviceStates = {
+    'motionDevice':['motion', 'no motion'],
+    'openClosedDevice':['open', 'closed'],
+    'tiltDevice':['open', 'closed'],
+    'waterDevice':['wet', 'dry'],
+  }
 
   //polling
   setInterval(function(){$scope.getDevices()}, 5000);
@@ -39,6 +26,7 @@ angular.module('hhb', ['ngMaterial'])
     'deviceState': 'Dry',
     'deviceStateTimer': '12',
     'deviceAlerts': 'None',
+    'deviceType': 'waterDevice',
     'deviceNameIndex': '00',
     'deviceConfiguration': '0301',
     'aliveUpdateTimer': '12',
@@ -57,6 +45,7 @@ angular.module('hhb', ['ngMaterial'])
   'deviceState': 'Dry',
   'deviceStateTimer': '12',
   'deviceAlerts': 'None',
+  'deviceType': 'openClosedDevice',
   'deviceNameIndex': '00',
   'deviceConfiguration': '0301',
   'aliveUpdateTimer': '12',
@@ -139,5 +128,9 @@ angular.module('hhb', ['ngMaterial'])
       $scope.failedSettingVacationMode = true;
       $scope.isSettingVacationMode = false;
     });
+  }
+
+  $scope.deleteAlert = function(macAddress, index){
+    $scope.alertRules[macAddress].splice(index, 1); //delete 1 element starting from given index
   }
 });

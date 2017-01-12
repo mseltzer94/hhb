@@ -67,9 +67,7 @@ setInterval(function(){
   var lastContact = homeMonitor.getLastContact();
   var isVacationMode = homeMonitor.getVacationModeStatus();
   request.post(FRONTENDSERVER + '/api/updateDeviceData', {form: {devices: devices, status: status, errorMessage: errorMessage, lastContact:lastContact, isVacationMode:isVacationMode}},
-  function(err,httpResponse, body){
-    console.log(body);
-  });
+  function(err,httpResponse, body){});
 }, SENDDELAY);
 
 app.use('/api', router);

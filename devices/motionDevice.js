@@ -11,6 +11,7 @@ class motionDevice extends hhbDevice {
     this.update();
   }
   update(){
+    this.deviceType = 'motionDevice';
     this.deviceState = deviceStateMap[this.deviceState];
   }
 }
