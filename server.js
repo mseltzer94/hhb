@@ -61,7 +61,9 @@ router.get('/alertRules', function(req, res){
 
 router.post('/alertEmailAddresses', function(req, res){
   if (req && req.body && req.body.hasOwnProperty('emails')){
-    homeMonitor.setAlertEmailAddresses(req.body.emails, function(err){
+    var emails = req.body.emails.split(','); // csv list
+    emails = emails.map(function(email){return email.trim()});
+    homeMonitor.setAlertEmailAddresses(emails, function(err){
       if (err){
         res.status(500).send('Failed to save alert rules');
       } else {
@@ -74,7 +76,8 @@ router.post('/alertEmailAddresses', function(req, res){
 });
 
 router.get('/alertEmailAddresses', function(req, res){
-  res.status(200).send({"emails" : homeMonitor.getAlertEmailAddresses()});
+  var emails = homeMonitor.getAlertEmailAddresses()
+  res.status(200).send({"emails" : emails.join(', ')});
   }
 );
 
