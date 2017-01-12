@@ -37,7 +37,7 @@ However, the device is currently limited because it has no online service or mec
 export MAILEREMAILADDRESS=email@gmail.com 
 export MAILEREMAILPASSWORD=emailpassword
 ```
-* **NOTE**: To ensure that email notifications are set properly, the service will check for the following environmental variables and test with gmail that they are valid. The service will not start without these. **
+* **NOTE**: To ensure that email notifications are set properly, the service will check for environmental variables and test with gmail that they are valid. The service will not start without these.
 
 2. There are two ways to start the Service
   * `node start` will start the service as a normal process
