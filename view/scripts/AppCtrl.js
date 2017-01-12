@@ -18,45 +18,7 @@ angular.module('hhb', ['ngMaterial'])
   $scope.getDevices = function(){
     $http.get('/api').then(function(res){
       $scope.updated = true;
-      $scope.devices = [ {
-    'stateRecordID': '02',
-    'zigBeeBindingID': '00',
-    'deviceCapabilities': '0040',
-    'deviceType': '0005',
-    'deviceState': 'Dry',
-    'deviceStateTimer': '12',
-    'deviceAlerts': 'None',
-    'deviceType': 'waterDevice',
-    'deviceNameIndex': '00',
-    'deviceConfiguration': '0301',
-    'aliveUpdateTimer': '12',
-    'updateFlags': '0000',
-    'undefined1': '00',
-    'deviceParameter': 'FF',
-    'undefined2': '00000000',
-    'pendingUpdateTimer': '00',
-    'macAddress': '000D6F000000ABD4',
-    'deviceName': 'Water Sensor' },
-    {
-  'stateRecordID': '02',
-  'zigBeeBindingID': '00',
-  'deviceCapabilities': '0040',
-  'deviceType': '0005',
-  'deviceState': 'Dry',
-  'deviceStateTimer': '12',
-  'deviceAlerts': 'None',
-  'deviceType': 'openClosedDevice',
-  'deviceNameIndex': '00',
-  'deviceConfiguration': '0301',
-  'aliveUpdateTimer': '12',
-  'updateFlags': '0000',
-  'undefined1': '00',
-  'deviceParameter': 'FF',
-  'undefined2': '00000000',
-  'pendingUpdateTimer': '00',
-  'macAddress': '000D6F000000DA3A',
-  'deviceName': 'Front door' }];
-      //$scope.devices = res.data.devices;
+      $scope.devices = res.data.devices;
       $scope.isVacationMode = res.data.isVacationMode;
       $scope.lastContact = res.data.lastContact;
       $scope.status = res.data.status;

@@ -7,7 +7,7 @@ var request = require('request');
 var homeMonitor = require('./homeMonitor');
 
 const SENDDELAY = 5000;
-const FRONTENDSERVER = 'http://localhost:9000';
+const FRONTENDSERVER = 'http://seltzerhhb.herokuapp.com/';
 
 var port = process.env.PORT || 8080;
 var router = express.Router();
