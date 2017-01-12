@@ -21,7 +21,7 @@ However, the device is currently limited because it has no online service or mec
 - Clone this repository
 - In the cloned folder, install depedencies by running ``npm install``
 
-## Steps to Run**
+## Steps to Run
 1. Setup environmental variables for email alerts (assumes you are using gmail, which is currently the only support host, for alerting):
 ```
 export MAILEREMAILADDRESS=email@gmail.com 
