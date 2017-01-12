@@ -22,6 +22,7 @@ However, the device is currently limited because it has no online service or mec
 
 There are two kinds of alerts:
 * User created device specific alerts
+  * Alerts can be editing on the front end (recommended) or by editing the file as described below
   * Alerts are specified in the alerts/alert.json file
       * An example file is included in which the email(s) to be alerted may be specified. If SMS alerts are desired there is a [list](https://en.wikipedia.org/wiki/SMS_gateway) of Email to SMS gateways that may be used
       * Each alert is specified with the following:
