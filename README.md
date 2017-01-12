@@ -1,6 +1,6 @@
 # Home Heartbeat (HHB) Alarm and Monitoring Service
 
-[Description](##Description)
+[Description](#Description)
 
 ##Description
 
