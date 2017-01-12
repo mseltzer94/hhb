@@ -54,9 +54,9 @@ There are two kinds of alerts:
 - In the cloned folder, install depedencies by running ``npm install``
 
 **Steps to Run**
-1. Setup environmental variables for email alerts:
+1. Setup environmental variables for email alerts (assumes you are using gmail, which is currently the only support host, for alerting):
 ```
-export MAILEREMAILADDRESS=email@gmail.com (assumes you are using gmail for alerting)
+export MAILEREMAILADDRESS=email@gmail.com 
 export MAILEREMAILPASSWORD=emailpassword
 ```
 * **NOTE**: To ensure that email notifications are set properly, the service will check for the following environmental variables and test with gmail that they are valid. The service will not start without these. **
