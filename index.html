@@ -20,7 +20,7 @@
 <html>
 <body ng-app="hhb">
   <div ng-controller="AppCtrl" ng-cloak ng-init="getDevices()">
-    <md-toolbar>
+    <md-toolbar class="md-small">
       <div class="md-toolbar-tools">
         <h2 flex="40">
           <span>Seltzer Home</span>
@@ -35,7 +35,7 @@
         </h2>
         <span flex>
         </span>
-        <md-button flex="nogrow" ng-click="toggleAlertRules()" aria-label="alerts">
+        <md-button flex="nogrow" ng-click="toggleAlertRules()" ng-class="showAlertRules ? 'md-raised': ''" aria-label="alerts">
           Alert Rules
         </md-button>
         <div layout="row" layout-xs="column">
