@@ -34,15 +34,30 @@ However, the device is currently limited because it has no online service or mec
 ## Steps to Run
 1. Setup environmental variables for email alerts (assumes you are using gmail, which is currently the only support host, for alerting):
 ```
-export MAILEREMAILADDRESS=email@gmail.com 
+export MAILEREMAILADDRESS=email 
 export MAILEREMAILPASSWORD=emailpassword
 ```
-* **NOTE**: To ensure that email notifications are set properly, the service will check for environmental variables and test with gmail that they are valid. The service will not start without these.
+* **NOTE**: To ensure that email notifications are set properly, the service will check for environmental variables and test with gmail that they are valid. The service will not start without these. 
+MAILEMAILADDRESS is the username only, not the full email address. Example: myname@gmail.com ==> MAILEREMAILADDRESS=myname
 
 2. There are two ways to start the Service
   * `node start` will start the service as a normal process
   * `forever start -c "npm start" ./` will start the service to be run in the background (require forever to be install, run ``npm install -g forever`` before running this command)
-
+  
+3. If power fails, it's important for hhb to run on a reboot.
+One approach:
+Add a line to /etc/rc.local:
+```
+  /home/pi/hhb.sh &
+```
+/home/pi/hhb.sh contains:
+```
+#!/bin/sh
+export MAILEREMAILADDRESS=<email_address_name>
+export MAILEREMAILPASSWORD=xxxxxxxxxx
+cd /home/pi/hhb
+/usr/local/bin/forever start -c "/usr/local/bin/npm start" ./
+```
 ## My setup
 - Rasperry Pi B+ running Jessie connected over USB to Home Heartbeat
 
