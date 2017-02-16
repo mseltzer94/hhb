@@ -94,4 +94,4 @@ There are two kinds of alerts:
 
 Feedback and any modifications that would make this service more useful are greatly appreciated! Feel free to send a PR or add an issue.
 
-Thanks to [Kolinahr](http://www.kolinahr.com/documentation/home-heartbeat/) for the thorough documentation on their reverse engineering of the HomeHeartbeat
+Thanks to [Kolinahr](http://www.kolinahr.com/category/home-heartbeat/) for the thorough documentation on their reverse engineering of the HomeHeartbeat
