@@ -28,7 +28,22 @@ However, the device is currently limited because it has no online service or mec
 
 ## Installation
 - [Install](http://www.kolinahr.com/documentation/home-heartbeat/usb-drivers-for-the-home-heartbeat/)  the appropriate FTDI serial driver (MacOS, Linux, Windows)
-- Clone this repository
+ - For my Raspberry Pi B+, the following worked:
+   - Create the file /etc/udev/rules.d/10-home-heartbeat.rules containing the following line of text:
+     ```
+     SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="de29", RUN+="/sbin/modprobe ftdi_sio", RUN+="/bin/sh -c 'echo 0403 de29 > /sys/bus/usb-serial/drivers/ftdi_sio/new_id'", SYMLINK+="hhb"
+     ```
+   - plug in the USB cable connected to the Home Hearbeat base station, and /var/log/messages should say something like:
+     ```
+     usb 1-1.4: New USB device found, idVendor=0403, idProduct=de29
+     usb 1-1.4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+     usb 1-1.4: Product: HHB Basestation
+     usb 1-1.4: Manufacturer: Eaton
+     ftdi_sio 1-1.4:1.0: FTDI USB Serial Device converter detected
+     usb 1-1.4: Detected FT232BM
+     usb 1-1.4: FTDI USB Serial Device converter now attached to ttyUSB0
+     ```
+- Clone this GIT repository
 - In the cloned folder, install depedencies by running ``npm install``
 - Set the correct serial port device, if needed:
   - homeMonitor.js:
