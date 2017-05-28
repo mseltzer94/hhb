@@ -30,6 +30,9 @@ However, the device is currently limited because it has no online service or mec
 - [Install](http://www.kolinahr.com/documentation/home-heartbeat/usb-drivers-for-the-home-heartbeat/)  the appropriate FTDI serial driver (MacOS, Linux, Windows)
 - Clone this repository
 - In the cloned folder, install depedencies by running ``npm install``
+- Set the correct serial port device, if needed:
+  - homeMonitor.js:
+  - SERIAL_PORT = '/dev/ttyUSB0';
 - npm install forever -g
 - sudo ln -s /opt/nodejs/bin/forever /usr/local/bin
 
