@@ -31,6 +31,7 @@ However, the device is currently limited because it has no online service or mec
 - Clone this repository
 - In the cloned folder, install depedencies by running ``npm install``
 - npm install forever -g
+- sudo ln -s /opt/nodejs/bin/forever /usr/local/bin
 
 ## Steps to Run
 1. Setup environmental variables for email alerts (assumes you are using gmail, which is currently the only support host, for alerting):
@@ -43,7 +44,7 @@ MAILEMAILADDRESS is the username only, not the full email address. Example: myna
 
 2. There are two ways to start the Service
   * `node start` will start the service as a normal process
-  * `forever start -c "npm start" ./` will start the service to be run in the background (require forever to be install, run ``npm install -g forever`` before running this command)
+  * `forever start -c "npm start" ./` will start the service to be run in the background (require forever to be installed, run ``npm install -g forever`` before running this command)
   
 3. If power fails, it's important for hhb to run on a reboot.
 One approach:
