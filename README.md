@@ -23,7 +23,7 @@ However, the device is currently limited because it has no online service or mec
 ## Requirements
 - Node v6.9.2 or greater
 - USB serial FTDI driver
-- Homeheart beat is connected on serial port /dev/ttyUSB0 running at a baudRate of 38400
+- Homeheart beat is connected on serial port /dev/ttyhhb running at a baudRate of 38400
 - A gmail account (recommended to create a separate email account specifically for the service as you must [enable less secure apps](https://www.google.com/settings/security/lesssecureapps))
 
 ## Installation
@@ -43,11 +43,25 @@ However, the device is currently limited because it has no online service or mec
      usb 1-1.4: Detected FT232BM
      usb 1-1.4: FTDI USB Serial Device converter now attached to ttyUSB0
      ```
+   - Test the connection to the Home Hearbeat
+     - sudo apt-get install screen
+     - screen /dev/hhb 38400
+       - type "S" (just an uppercase S)
+       - you should get something like:
+         ```
+         STATE="00,FF,0088,0001,00,00,00,00,0000,00,0000,00,00,00000000,00,,"
+         STATE="01,FF,0080,0010,00,00,00,00,0000,00,0000,00,00,00000000,00,,"
+         STATE="02,00,0040,0002,00,07,00,00,0001,03,0000,00,FF,00000000,00,000D6F000000xxxx,Home Key"
+         ...
+         STATE="07,05,0034,0017,FF,00,02,00,0000,83,0000,00,00,00000000,00,000D6F000000xxxx,Motion Sensor"
+         STATE=DONE
+         ```
+       - To exit screen, type Control-a \
 - Clone this GIT repository
 - In the cloned folder, install depedencies by running ``npm install``
 - Set the correct serial port device, if needed:
   - homeMonitor.js:
-  - SERIAL_PORT = '/dev/ttyUSB0';
+  - SERIAL_PORT = '/dev/ttyhhb';
 - npm install forever -g
 - sudo ln -s /opt/nodejs/bin/forever /usr/local/bin
 
