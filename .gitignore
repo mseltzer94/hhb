@@ -2,6 +2,7 @@ node_modules
 
 # Configuration
 alerts/alert.json
+hhb.sh
 # Logs
 logs
 *.log
