@@ -77,7 +77,7 @@ angular.module('hhb', ['ngMaterial'])
     if (!$scope.alertRules[macAddress]){
       $scope.alertRules[macAddress] = [];
     }
-    $scope.alertRules[macAddress].push({'macAddress':macAddress});
+    $scope.alertRules[macAddress].push({'macAddress':macAddress, 'field':'deviceState'});
   }
 
   $scope.saveRules = function(){
