@@ -79,7 +79,9 @@ function manageAlerts() {
     var newState = _.get(devices, `${alert.macAddress}.${alert.field}`);
     var isStartup = !oldState && newState;
     var isChangeDetected = (!oldState || !newState) ? false : newState.toUpperCase() != oldState.toUpperCase()
-    var isAlertMatch = (!newState) ? false : newState.toUpperCase() == alert.fieldContents.toUpperCase();
+    var newStateText = newState ? newState.toUpperCase(): "";
+    var fieldContentsText = alert && alert.fieldContents ? alert.fieldContents.toUpperCase() : "";
+    var isAlertMatch = (!newState) ? false : newStateText == alert.fieldContentsText;
     var shouldSendOnResolve = _.get(alert, 'sendOnResolve');
     var isVacationOnly = _.get(alert, 'isVacationOnly');
     if (isChangeDetected &&(isAlertMatch || shouldSendOnResolve) || (isStartup && isAlertMatch)){

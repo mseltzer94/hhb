@@ -76,6 +76,7 @@
               <span flex='10'></span>
               <span flex='30'>
                 Alert on
+		{{device.deviceType}}
                 <md-input-container>
                   <md-select required ng-model="alertRule.fieldContents" aria-label="field">
                     <md-option ng-repeat="deviceState in deviceStates[device.deviceType]" ng-value="deviceState">
